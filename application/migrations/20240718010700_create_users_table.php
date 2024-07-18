@@ -23,19 +23,19 @@ class Migration_create_users_table extends CI_Migration {
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ),
-            'role' => array(
+            'nomor_hp' => array(
                 'type' => 'VARCHAR',
-                'constraint' => '6',
+                'constraint' => '15',
             ),
-            'created_at' => array(
-                'type' => 'TIMESTAMP',
+            'address' => array(
+                'type' => 'TEXT',
+            ),
+            'role' => array(
+                'type' => "ENUM('admin', 'user')",
             ),
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('users');
-        // Set default value for created_at using a manual SQL query
-        $sql = "ALTER TABLE users MODIFY created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP";
-        $this->db->query($sql);
     }
 
     public function down()
