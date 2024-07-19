@@ -9,6 +9,10 @@ module.exports = {
 			xl: "1280px",
 		},
 		extend: {
+			backgroundImage: {
+				"hero1": 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("../img/hero1.webp")',
+				"hero2": 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("../img/hero2.jpg")',
+			},
 			colors: {
 				primary: "#9c4a29",
 				secondary: "#edebe4",
