@@ -10,8 +10,8 @@ module.exports = {
 		},
 		extend: {
 			backgroundImage: {
-				"hero1": 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("../img/hero1.webp")',
-				"hero2": 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("../img/hero2.jpg")',
+				"hero1": 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/hero1.webp")',
+				"hero2": 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("../img/hero2.jpg")',
 			},
 			colors: {
 				primary: "#9c4a29",
