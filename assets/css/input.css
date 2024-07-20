@@ -6,4 +6,7 @@
     .dot-active {
         @apply bg-white;
     }
+    .fade-up {
+        @apply animate-fadeUp;
+    }
 }

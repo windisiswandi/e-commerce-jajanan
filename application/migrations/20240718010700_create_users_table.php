@@ -11,7 +11,15 @@ class Migration_create_users_table extends CI_Migration {
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ),
+            'name' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
             'username' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'email' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ),
@@ -19,11 +27,7 @@ class Migration_create_users_table extends CI_Migration {
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
-            'email' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-            ),
-            'nomor_hp' => array(
+            'phone_number' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '15',
             ),

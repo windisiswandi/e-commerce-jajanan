@@ -1,6 +1,6 @@
-    <footer class="bg-gray-100">
-        <div class="xl:container py-8 sm:py-16 px-4 sm:px-8">
-            <div class="grid grid-cols-4 gap-4">
+    <footer class="bg-white">
+        <div class="xl:container px-4 sm:px-8">
+            <div class="grid grid-cols-4 gap-4 py-8 sm:py-16">
                 <div>
                     <h1 class="font-semibold text-2xl">Toko Jajanan Lombok</h1>
                     <p class="text-gray-500 text-sm mt-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -46,6 +46,9 @@
                     </table>
                     <!-- <iframe class="w-full mt-3" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8976.370175897235!2d116.53855345649421!3d-8.659116886004599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcc4f002f414ca9%3A0xf3d932b590e2061f!2sBermis%201%20Selong!5e0!3m2!1sid!2sid!4v1721428911806!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                 </div>
+            </div>
+            <div class="py-5 border-t border-t-gray-300 text-base text-center">
+                Copyright &copy;<script>document.write(new Date().getFullYear())</script> Toko Jajanan Lombok | All right reserve
             </div>
         </div>
     </footer>

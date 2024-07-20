@@ -1,6 +1,7 @@
 let currentIndex = 0;
 const slider = document.getElementById('slider');
 const slides = document.querySelectorAll('.slide');
+const slideTitle = document.querySelectorAll('.slide h1');
 const totalSlides = slides.length;
 const dots = document.querySelectorAll('.dot');
 
@@ -25,19 +26,24 @@ function updateSlider() {
     const offset = -currentIndex * 100 / totalSlides;
     slider.style.transform = `translateX(${offset}%)`;
     updateDots();
+    slideTitle.forEach((slide, index) => {
+        console.log(slide, index)
+        if (index === currentIndex) slide.classList.add("animate-fadeUp")
+        else slide.classList.remove("animate-fadeUp")
+    })
 }
 
 function updateDots() {
     dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-            dot.classList.add('dot-active');
-        }else {
-            dot.classList.remove('dot-active');
-        }
+        if (index === currentIndex) dot.classList.add('dot-active');
+        else dot.classList.remove('dot-active');
     });
 }
 
-updateSlider();
+window.addEventListener('load', () => {
+    updateSlider();
+})
+
 
 // setInterval(() => {
 //     if (currentIndex >= totalSlides) currentIndex = 0

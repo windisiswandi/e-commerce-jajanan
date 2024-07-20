@@ -21,6 +21,7 @@ module.exports = {
 			animation: {
 				popupAnimation: "popupAnimation 0.3s ease",
 				scrollAnitmation: "scrollAnitmation 0.3s ease",
+				fadeUp: "fadeUp 0.7s ease",
 			},
 			keyframes: {
 				popupAnimation: {
@@ -31,6 +32,10 @@ module.exports = {
 					"0%": { transform: "translateY(-100%)" },
 					"100%": { transform: "translateY(0)" },
 				},
+				fadeUp: {
+					"0%" : {transform: "translateY(100px)", opacity: 0},
+					"100%" : {transform: "translateY(0)", opacity: 1},
+				}
 			},
 		},
 		container: {
