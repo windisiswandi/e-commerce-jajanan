@@ -7,6 +7,10 @@
                         <div class="card-title">Tambah Produk</div>
                     </div>
                     <div class="card-body">
+                        <?php if($this->session->userdata('errorFile')) : ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"><strong><?= $this->session->userdata('errorFile'); ?></strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+                        <?php endif; ?>
+                        <?php $this->session->unset_userdata('errorFile') ?>
                         <form method="post" enctype="multipart/form-data">
 
                             <div class="row">
@@ -18,7 +22,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Kategori Produk</label>
-                                        <select class="form-select" aria-label="Default select example" name="category_id">
+                                        <select class="form-select" aria-label="Default select example" name="category_id" required>
                                             <?php foreach($categories as $key => $category): ?>
                                                 <option value="<?= $category->id; ?>"><?= $category->category_name; ?></option>
                                             <?php endforeach; ?>
@@ -51,9 +55,10 @@
                             </div>
                             <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="deskripsi" name="description" value="<?= set_value("description") ?>" rows="5" placeholder="Masukan deskripsi tentang produk ini" required></textarea>
+                                <textarea class="form-control" id="deskripsi" name="description" rows="5" placeholder="Masukan deskripsi tentang produk ini" required><?= set_value("description") ?></textarea>
                                 <?= form_error("description", '<small class="text-danger ml-3">', '</small>'); ?>
                             </div>
+                            <a href="<?= base_url('dashboard/products') ?>" class="btn btn-black">Cancel</a>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>

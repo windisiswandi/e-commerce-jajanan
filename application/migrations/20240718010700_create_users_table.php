@@ -34,8 +34,14 @@ class Migration_create_users_table extends CI_Migration {
             'address' => array(
                 'type' => 'TEXT',
             ),
+            'jk' => array(
+                'type' => "ENUM('L', 'P')",
+            ),
             'role' => array(
                 'type' => "ENUM('admin', 'user')",
+            ),
+            'foto' => array(
+                'type' => "TEXT",
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

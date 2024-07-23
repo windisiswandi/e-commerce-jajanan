@@ -19,7 +19,7 @@ class Migration_create_products_table extends CI_Migration {
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ),
-             'stock' => array(
+            'stock' => array(
                 'type' => 'INT',
                 'unsigned' => TRUE,
             ),
@@ -28,6 +28,10 @@ class Migration_create_products_table extends CI_Migration {
                 'unsigned' => TRUE,
             ),
             'product_modal' => array(
+                'type' => 'INT',
+                'unsigned' => TRUE,
+            ),
+            'sell' => array(
                 'type' => 'INT',
                 'unsigned' => TRUE,
             ),

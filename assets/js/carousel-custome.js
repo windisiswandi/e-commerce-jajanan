@@ -27,7 +27,6 @@ function updateSlider() {
     slider.style.transform = `translateX(${offset}%)`;
     updateDots();
     slideTitle.forEach((slide, index) => {
-        console.log(slide, index)
         if (index === currentIndex) slide.classList.add("animate-fadeUp")
         else slide.classList.remove("animate-fadeUp")
     })

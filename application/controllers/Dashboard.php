@@ -11,10 +11,13 @@ class Dashboard extends CI_Controller {
 		$this->load->model("Product_model");
 		$this->load->library(["form_validation", "upload"]);
 
+        $this->_data["products"] = $this->Product_model->get_all_products();
+        $this->_data["pelanggans"] = $this->db->get_where('users', ['role' => 'user'])->result();
+
         if (!$this->session->userdata("email")) {
             redirect('Auth/login');
         }else {
-            if($this->session->userdata("role") != "admin") redirect("Home");
+            if($this->session->userdata("role") != "admin") redirect("/");
         }
     }
 	
@@ -23,7 +26,7 @@ class Dashboard extends CI_Controller {
         $this->_data['title'] = "Dashboard";
         $this->_data['dashboard'] = true;
 		$this->load->view('dashboard/header', $this->_data);
-		$this->load->view('dashboard/index');
+		$this->load->view('dashboard/index', $this->_data);
 		$this->load->view('dashboard/footer');
 	}
 
@@ -76,7 +79,6 @@ class Dashboard extends CI_Controller {
     }
 // produk
     public function products() {
-        $this->_data['products'] = $this->Product_model->get_all_products();
         $this->_data['title'] = "Dashboard";
         $this->_data['product'] = true;
 		$this->load->view('dashboard/header', $this->_data);
@@ -110,7 +112,7 @@ class Dashboard extends CI_Controller {
 
             if (!empty($_FILES['foto']['name'])) {
                 $config['upload_path'] = './assets/img/products/';
-                $config['allowed_types'] = 'jpg|jpeg|png|webp';
+                $config['allowed_types'] = 'jpg|jpeg|png|webp|jpe';
                 $config['max_size'] = 1024;
                 $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
                 $config['file_name'] = time() . '.' . $ext;
@@ -121,7 +123,8 @@ class Dashboard extends CI_Controller {
                     $data['foto'] = $upload_data['file_name'];
                 } else {
                     $error = $this->upload->display_errors();
-                    var_dump($error); die;
+                    $this->session->set_userdata('errorFile', $error);
+                    redirect('dashboard/product_create');
                 }
             }
 
@@ -160,8 +163,10 @@ class Dashboard extends CI_Controller {
             ];
 
             if (!empty($_FILES['foto']['name'])) {
+                // var_dump(mime_content_type($_FILES['foto']['tmp_name'])); die;
+
                 $config['upload_path'] = './assets/img/products/';
-                $config['allowed_types'] = 'jpg|jpeg|png|webp';
+                $config['allowed_types'] = 'jpg|jpeg|png|webp|jpe';
                 $config['max_size'] = 1024;
                 $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
                 $config['file_name'] = time() . '.' . $ext;
@@ -169,11 +174,13 @@ class Dashboard extends CI_Controller {
 
                 if ($this->upload->do_upload('foto')) {
                     $upload_data = $this->upload->data();
-                    if ($this->input->post('foto')) unlink('./assets/img/products/'.$this->input->post('foto'));
+                    if ($this->input->post('old_foto')) unlink('./assets/img/products/'.$this->input->post('old_foto'));
                     $data['foto'] = $upload_data['file_name'];
                 } else {
                     $error = $this->upload->display_errors();
-                    var_dump($error); die;
+                    
+                    $this->session->set_userdata('errorFile', $error);
+                    redirect('dashboard/product_edit/'.$id);
                 }
             }
 

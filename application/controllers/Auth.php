@@ -11,13 +11,13 @@ class Auth extends CI_Controller {
     public function login()
     {
         $this->_data["title"] = "Login";
-        if ($this->session->userdata("email")) {
+        if ($this->session->userdata("username")) {
             redirect("Dashboard");
         }else {
             if ($this->input->post("username")) {
-                $email = $this->input->post("username");
+                $username = $this->input->post("username");
                 $password = $this->input->post("password");
-                $user = $this->db->get_where("users", ["username" => $email])->row_array();
+                $user = $this->db->get_where("users", ["username" => $username])->row_array();
                 
                 if ($user) {
 
@@ -47,10 +47,83 @@ class Auth extends CI_Controller {
         }
     }
 
+    public function user_login() 
+    {
+        $this->_data["title"] = "Login";
+        if ($this->session->userdata("username")) {
+            redirect("/");
+        }else {
+            if ($this->input->post("username")) {
+                $username = $this->input->post("username");
+                $password = $this->input->post("password");
+                $user = $this->db->get_where("users", ["username" => $username])->row_array();
+                
+                if ($user) {
+
+                    if (password_verify($password, $user["password"]) && $user['role'] == "user") {
+                        $data = [
+                            "id" => $user["id"],
+                            "username" => $user["username"],
+                            "email" => $user["email"],
+                            "role" => $user["role"],
+                        ];
+                        $this->session->set_userdata($data);
+                        redirect("Dashboard");
+                    }else {
+                        $this->session->set_userdata("errorLogin",  true);
+                        redirect("Auth/user_login");
+                    }
+
+                }else {
+                    $this->session->set_userdata("errorLogin", true);
+                    redirect("Auth/user_login");
+                }
+                
+            }else {
+                $this->load->view("login", $this->_data);
+            }
+        }
+    }
+
     public function logout() 
     {
+        $role = $this->session->userdata('role');
         $this->session->sess_destroy();
-        redirect('Auth/login');
+        if ($role == "admin") redirect('Auth/login');
+        else redirect("/");
+    }
+    
+    public function user_register()
+    {
+        // var_dump(filter_var("windi@gami.s", FILTER_VALIDATE_EMAIL)); die;
+        $this->form_validation->set_rules("password", "Password", "required");
+        $this->form_validation->set_rules("pasconf", "Confirm Password", "matches[password]|required");
+        $this->form_validation->set_rules("email", "Email", "trim|required|is_unique[users.email]");
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('register');
+        }else {
+            $data = [
+                "name" => $this->input->post("first_name")." ".$this->input->post("second_name"),
+                "username" => $this->input->post("username"),
+                "phone_number" => $this->input->post("phone_number"),
+                "address" => $this->input->post("address"),
+                "email" => $this->input->post("email"),
+                "password" => password_hash($this->input->post("password"), PASSWORD_DEFAULT),
+                "role" => "user",
+            ];
+
+            if ($this->db->insert("users", $data)) {
+                 $ses_data = [
+                    "username" => $this->db->insert_id(),
+                    "username" => $data["username"],
+                    "email" => $data["email"],
+                    "role" => $data["role"],
+                ];
+                $this->session->set_userdata($ses_data);
+                redirect("/");
+            }
+        }
     }
 
     public function register()

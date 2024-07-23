@@ -6,10 +6,14 @@ class Migration_create_orders_table extends CI_Migration {
     public function up()
     {
         $this->dbforge->add_field(array(
-             'id' => array(
+            'id' => array(
                 'type' => 'INT',
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
+            ),
+            'order_number' => array(
+                'type' => 'TEXT',
+                'constraint' => "20"
             ),
             'user_id' => array(
                 'type' => 'INT',
@@ -23,10 +27,10 @@ class Migration_create_orders_table extends CI_Migration {
                 'unsigned' => TRUE,
             ),
             'payment_method' => array(
-                'type' => 'ENUM("transfer","COD")',
+                'type' => 'ENUM("transfer","cod")',
             ),
             'order_status' => array(
-                'type' => 'ENUM("pending","confirmed","shipped","delivered","cancelled")',
+                'type' => 'ENUM("pending","packed","shipped","delivered","cancelled")',
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

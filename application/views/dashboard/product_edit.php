@@ -8,7 +8,10 @@
                     </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data">
-
+                             <?php if($this->session->userdata('errorFile')) : ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert"><strong><?= $this->session->userdata('errorFile'); ?></strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+                            <?php endif; ?>
+                            <?php $this->session->unset_userdata('errorFile') ?>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -46,6 +49,7 @@
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">Foto</label>
                                         <input class="form-control" type="file" id="formFile" name="foto">
+                                        <input class="form-control" type="hidden" id="formFile" name="old_foto" value="<?= $pct->foto; ?>">
                                     </div>
                                 </div>
                             </div>
@@ -54,6 +58,7 @@
                                 <textarea class="form-control" id="deskripsi" name="description" value="<?= set_value("description") ?>" rows="5" placeholder="Masukan deskripsi tentang produk ini" required><?= $pct->description ?> </textarea>
                                 <?= form_error("description", '<small class="text-danger ml-3">', '</small>'); ?>
                             </div>
+                            <a href="<?= base_url('dashboard/products') ?>" class="btn btn-black">Cancel</a>
                             <button type="submit" class="btn btn-primary text-white">Update</button>
                         </form>
                     </div>

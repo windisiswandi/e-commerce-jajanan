@@ -19,6 +19,10 @@ class Migration_create_carts_table extends CI_Migration {
                 'type' => 'INT',
                 'unsigned' => TRUE,
             ),
+            'qty' => array(
+                'type' => 'INT',
+                'unsigned' => TRUE,
+            ),
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('carts');

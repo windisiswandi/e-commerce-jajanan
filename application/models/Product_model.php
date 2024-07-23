@@ -15,6 +15,11 @@ class Product_model extends CI_Model {
         return $this->db->get_where('products', ['id' => $id])->row();
     }
 
+    public function get_product_search($keyword) {
+        $this->db->like('product_name', $keyword);
+        return $this->db->get('products')->result();
+    }
+
     public function insert_product($data) {
         return $this->db->insert('products', $data);
     }
