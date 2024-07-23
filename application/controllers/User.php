@@ -10,6 +10,8 @@ class User extends CI_Controller {
 		$this->load->model("cart_model");
 		$this->load->model("User_model");
 		$this->load->library(["form_validation", "upload"]);
+        $this->_data['title'] = "Toko Jajanan Lombok";
+
         $id = $this->session->userdata('id');
         $this->_data['user'] = $this->User_model->get_user($id);
         $this->_data['carts'] = $this->cart_model->get_all_item();
@@ -20,7 +22,6 @@ class User extends CI_Controller {
 	
 	public function profile()
 	{
-        $this->_data['title'] = "Toko Jajanan Lombok";
         $this->load->view('components/header', $this->_data);
 		$this->load->view('user_profile.php', $this->_data);
 		$this->load->view('components/footer');
@@ -81,9 +82,17 @@ class User extends CI_Controller {
 
         $this->_data['orders'] = $dataOrders;
 
-        $this->_data['title'] = "Toko Jajanan Lombok";
         $this->load->view('components/header', $this->_data);
 		$this->load->view('user_order.php', $this->_data);
+		$this->load->view('components/footer');
+    }
+
+    public function payment($order_id) 
+    {
+        $this->_data['order'] = $this->db->get_where('orders', ['id' => $order_id])->row();
+        // var_dump( $this->_data['order']); die;
+        $this->load->view('components/header', $this->_data);
+		$this->load->view('payment', $this->_data);
 		$this->load->view('components/footer');
     }
 
@@ -92,7 +101,7 @@ class User extends CI_Controller {
         $this->form_validation->set_rules("password", "Password", "required");
         $this->form_validation->set_rules("pasconf", "Confirm Password", "matches[password]|required");
         if ($this->form_validation->run() === false) {
-            $this->_data['title'] = "Toko Jajanan Lombok";
+
             $this->load->view('components/header', $this->_data);
             $this->load->view('change_password.php', $this->_data);
             $this->load->view('components/footer');

@@ -36,8 +36,9 @@
                 <div class="flex items-center">
                     <a href="#" class="text-white hover:opacity-50 px-2">Tentang Kami</a>
                     <a href="#" class="text-white hover:opacity-50 px-2">Kontak</a>
-                    <?php if($this->session->userdata('username')) : ?>
+                    <?php if($this->session->userdata('username')): ?>
                         <!-- <div class="relative"> -->
+                            <?php if($this->session->userdata('role') == 'user'): ?>
                             <div class="text-white cursor-pointer flex items-center space-x-1 ml-3 group relative">
                                 <?php if(@$user->foto) : ?>
                                     <img src="<?= base_url('assets/img/users/'.$user->foto) ?>" class="w-6 h-6 rounded-full">
@@ -54,6 +55,7 @@
                                     <div class="w-4 h-4 rotate-45 bg-white absolute -top-1 right-10"></div>
                                 </div>
                             </div>
+                            <?php endif; ?>
                         <!-- </div> -->
                     <?php else: ?>
                         <a href="<?= base_url('auth/user_register') ?>" class="text-white hover:opacity-50 border-r-2 border-white border-opacity-20 px-2 font-bold">Daftar</a>

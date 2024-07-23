@@ -80,7 +80,7 @@ Kecamatan, Kota, Provinsi, Kode Pos" required><?= set_value("address") ?></texta
                     </div>
                     
                     <div class="text-center">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 text-white rounded-full text-lg mt-5">Sumbit</button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 text-white rounded-full text-lg mt-5">Register</button>
                         <p class="text-gray-400 mt-4">Sudah punya akun? <a href="<?= base_url("auth/user_login") ?>" class="text-blue-500">Login</a></p>
                     </div>
                 </form>

@@ -13,6 +13,13 @@ class Dashboard extends CI_Controller {
 
         $this->_data["products"] = $this->Product_model->get_all_products();
         $this->_data["pelanggans"] = $this->db->get_where('users', ['role' => 'user'])->result();
+        $sql = 'SELECT * FROM `orders` 
+                ORDER BY FIELD(order_status, "packed", "pending", "shipped", "delivered", "cancelled") ASC,
+                        `order_date` DESC  
+                LIMIT 6';
+        $query = $this->db->query($sql);
+        $this->_data["orderan"] = $this->db->query($sql)->result();
+        $this->_data["orders"] = $this->db->get('orders')->result();
 
         if (!$this->session->userdata("email")) {
             redirect('Auth/login');

@@ -120,27 +120,29 @@
 
         function addToCart(data) {
             <?php if($this->session->userdata('username')) : ?>
-            const id_product = $(data).data('id')
-            $.ajax({
-                url: `<?= base_url('cart/add') ?>`,
-                type: 'POST',
-                data: {id_product},
-                success: (response) => {
-                    iziToast.success({
-                        title: 'OK',
-                        message: "Product berhasil ditambahkan!",
-                        timeout: 2000,
-                        position: "topRight",
-                    });
-                },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    iziToast.error({
-                        title: 'Error!',
-                        position: "topRight"
-                    });
-                    console.log(textStatus, errorThrown);
-                }
-            })
+                <?php if($this->session->userdata('role') == "user"): ?>
+                const id_product = $(data).data('id')
+                $.ajax({
+                    url: `<?= base_url('cart/add') ?>`,
+                    type: 'POST',
+                    data: {id_product},
+                    success: (response) => {
+                        iziToast.success({
+                            title: 'OK',
+                            message: "Product berhasil ditambahkan!",
+                            timeout: 2000,
+                            position: "topRight",
+                        });
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => {
+                        iziToast.error({
+                            title: 'Error!',
+                            position: "topRight"
+                        });
+                        console.log(textStatus, errorThrown);
+                    }
+                })
+                <?php endif; ?>
             <?php else: ?>
                 window.location.href = "<?= base_url('auth/user_login') ?>"
             <?php endif; ?>

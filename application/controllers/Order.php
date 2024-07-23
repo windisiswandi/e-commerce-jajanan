@@ -15,16 +15,9 @@ class Order extends CI_Controller {
 		// $id = $this->session->userdata('id');
         // $this->_data['user'] = $this->User_model->get_user($id);
         // $this->_data['carts'] = $this->cart_model->get_where($id);
-	}
-	
-	public function index()
-	{
-		$this->_data['products'] = $this->Product_model->get_all_products();
-		$this->_data['title'] = "Toko Jajanan Lombok";
-		if (isset($_GET['search'])) $this->_data['products'] = $this->Product_model->get_product_search($_GET['search']);
-		$this->load->view('components/header', $this->_data);
-		$this->load->view('home', $this->_data);
-		$this->load->view('components/footer');
+
+        if (!$this->session->userdata("username")) redirect('auth/user_login');
+        if ($this->session->userdata("role") == "admin") redirect('dashboard');
 	}
 
 	public function add() 
@@ -56,6 +49,25 @@ class Order extends CI_Controller {
             redirect('user/orders');
         }
 	}
+
+    public function payment($order_id) 
+    {
+        $user_id = $this->session->userdata('id');
+        $data = [
+            "user_id" => $user_id,
+            "order_id" => $order_id,
+            "bank_name" => $this->input->post('bank_name'),
+            "no_rekening" => $this->input->post('no_rekening'),
+            "atas_nama" => $this->input->post('atas_nama'),
+            "foto" => "tews",
+        ];
+
+        if ($this->db->insert("payments", $data)) {
+            $this->db->where('id', $order_id)->update('orders', ['order_status' => 'packed']);
+            $this->session->set_userdata('success', true);
+            redirect('user/orders');
+        }
+    }
 
     public function cancel($order_id)
     {

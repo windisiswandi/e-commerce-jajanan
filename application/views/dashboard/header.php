@@ -48,13 +48,8 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-              <img
-                src="<?=base_url('assets/dashboard/img/kaiadmin/logo_light.svg');?>"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              />
+            <a href="<?= base_url('dashboard') ?>" class="logo text-white">
+              KintaShop
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">

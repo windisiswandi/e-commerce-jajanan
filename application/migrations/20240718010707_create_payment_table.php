@@ -19,6 +19,10 @@ class Migration_create_payment_table extends CI_Migration {
                 'type' => 'INT',
                 'unsigned' => TRUE,
             ),
+            'atas_nama' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
             'bank_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '20',
