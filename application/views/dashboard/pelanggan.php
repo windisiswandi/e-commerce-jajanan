@@ -1,15 +1,13 @@
 <div class="container">
     <div class="page-inner">
-        <?= $this->session->userdata("success"); ?>
-        <?php $this->session->unset_userdata("success"); ?>
-        <div class="page-header">
+        <!-- <div class="page-header">
             <h3 class="fw-bold mb-3">Daftar Produk</h3>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="<?= base_url('dashboard/product_create') ?>" class="card-title btn btn-success text-white"><i class="fas fa-plus"></i> Produk</a>
+                        <h1 class="card-title">Data Pelanggan</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -32,13 +30,9 @@
                                                 <?= $pel->name; ?>
                                             </td>
                                             <td><?= $pel->username; ?></td>
-                                            <td><?= $pel->stock; ?></td>
-                                            <td><?= "Rp ".number_format($pel->product_price, 0, ',', '.') ?></td>
-                                            <td><?= "Rp ".number_format($pel->product_modal, 0, ',', '.') ?></td>
-                                            <td>
-                                                <a href="<?= base_url('dashboard/product_edit/'.$pel->id) ?>" class="btn btn-primary text-white"><i class="fas fa-edit"></i></button>
-                                                <a href="<?= base_url("dashboard/product_delete/$pel->id"); ?>" class="btn btn-danger text-white" onclick="return confirm('Apakah anda yakin?')"><i class="fas fa-trash"></i></a>
-                                            </td>
+                                            <td><?= $pel->email; ?></td>
+                                            <td><?= $pel->phone_number; ?></td>
+                                            <td><?= $pel->address; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

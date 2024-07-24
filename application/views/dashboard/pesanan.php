@@ -86,7 +86,7 @@
                                                 <td>JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                                 <td>
-                                                    <a href="#" class="badge badge-info">Konfirmasi</a>
+                                                    <a href="<?= base_url('dashboard/confirm_pesanan/'.$order['order_id']); ?>" class="badge badge-info">Proses</a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -170,6 +170,7 @@
                                             <th>Tanggal Order</th>
                                             <th>Expedisi</th>
                                             <th>Total Bayar</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -177,13 +178,14 @@
                                             <?php foreach($orders['cancelled'] as $order) : ?>
                                             <tr>
                                                 <td>
-                                                    <span class="badge badge-warning">Belum Bayar</span>
+                                                    <span class="badge badge-danger">Cancelled</span>
                                                     <?= $order['order_number']; ?></td>
                                                 <td><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td>JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td><?= $order['catatan_pembatalan']; ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>

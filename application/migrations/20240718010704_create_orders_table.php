@@ -18,6 +18,7 @@ class Migration_create_orders_table extends CI_Migration {
             'no_resi' => array(
                 'type' => 'VARCHAR',
                 'constraint' => "20",
+                'null' => TRUE,
             ),
             'user_id' => array(
                 'type' => 'INT',
@@ -25,6 +26,14 @@ class Migration_create_orders_table extends CI_Migration {
             ),
             'order_date' => array(
                 'type' => 'DATETIME',
+            ),
+            'date_shipped' => array(
+                'type' => 'DATETIME',
+                'null' => TRUE,
+            ),
+            'date_delivered' => array(
+                'type' => 'DATETIME',
+                'null' => TRUE,
             ),
             'total_amount' => array(
                 'type' => 'INT',
@@ -35,6 +44,10 @@ class Migration_create_orders_table extends CI_Migration {
             ),
             'order_status' => array(
                 'type' => 'ENUM("pending","packed","shipped","delivered","cancelled")',
+            ),
+            'catatan_pembatalan' => array(
+                'type' => 'TEXT',
+                'null' => TRUE,
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

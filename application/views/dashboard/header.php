@@ -90,7 +90,7 @@
                   <p>Kategori Produk</p>
                 </a>
               </li>
-              <li class="nav-item <?= @$produk ? 'active' : '' ?>">
+              <li class="nav-item <?= @$product ? 'active' : '' ?>">
                 <a href="<?= base_url("dashboard/products") ?>">
                   <i class="fas fa-shopping-cart"></i>
                   <p>Produk</p>

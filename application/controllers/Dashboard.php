@@ -139,7 +139,7 @@ class Dashboard extends CI_Controller {
 
             
             if($this->Product_model->insert_product($data)) {
-                $this->session->set_userdata('success', '<div class="alert alert-warning alert-dismissible fade show" role="alert">Product berhasil <strong>ditambahkan!</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert">Product berhasil <strong>ditambahkan!</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     
                 redirect('Dashboard/products');
             }
@@ -195,7 +195,7 @@ class Dashboard extends CI_Controller {
 
             
             if($this->Product_model->update_product($id, $data)) {
-                $this->session->set_userdata('success', '<div class="alert alert-warning alert-dismissible fade show" role="alert">Product berhasil <strong>diupdate!</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert">Product berhasil <strong>diupdate!</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
     
                 redirect('Dashboard/products');
             }
@@ -207,7 +207,7 @@ class Dashboard extends CI_Controller {
         if ($product->foto) unlink('./assets/img/products/'.$product->foto);
         
         if($this->Product_model->delete_product($id)) {
-            $this->session->set_userdata('success', '<div class="alert alert-warning alert-dismissible fade show" role="alert">Product berhasil <strong>dihapus!</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert">Product berhasil <strong>dihapus!</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
             redirect('Dashboard/products');
         }
@@ -235,11 +235,37 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/pesanan', $this->_data);
 		$this->load->view('dashboard/footer');
     }
+
+    public function confirm_pesanan($order_id)
+    {
+        $this->_data['title'] = "Pesanan";
+        $this->_data['pesanan'] = true;
+        $this->_data['order'] = $this->order_model->get_order_with_user($order_id);
+
+		$this->load->view('dashboard/header', $this->_data);
+		$this->load->view('dashboard/konfirmasi_pesanan', $this->_data);
+		$this->load->view('dashboard/footer');
+    }
+
+    public function cancel_order($order_id)
+    {
+        $data = [
+            "order_status" => "cancelled",
+            "catatan_pembatalan" => $this->input->post('catatan'),
+        ];
+
+        if ($this->order_model->update($order_id, $data)) {
+            $this->session->set_userdata('success', "Pembatalan orderan berhasil");
+            $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success! </strong>Pembatalan orderan berhasil<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            redirect('dashboard/pesanan');
+        }
+    }
 // end pesanan
 // pelanggans
     public function pelanggan()
     {
         $this->_data['title'] = "Pelanggan";
+        $this->_data['pelanggan'] = true;
 		$this->load->view('dashboard/header', $this->_data);
 		$this->load->view('dashboard/pelanggan', $this->_data);
 		$this->load->view('dashboard/footer');

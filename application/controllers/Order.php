@@ -94,7 +94,7 @@ class Order extends CI_Controller {
 
     public function cancel($order_id)
     {
-        if ($this->db->where('id', $order_id)->update('orders', ['order_status'=>'cancelled'])) {
+        if ($this->db->where('id', $order_id)->update('orders', ['order_status'=>'cancelled', "catatan_pembatalan" => "Dibatalkan oleh pelanggan"])) {
             redirect('user/orders');
         }
     }

@@ -19,8 +19,11 @@ class Seeder extends CI_Controller {
                 'role' => 'admin'
             ],
             [
+                'name' => 'pelanggan1',
                 'username' => 'pel1',
                 'email' => 'pelanggan1@example.com',
+                'phone_number' => '6282354678009',
+                'address' => 'Selong, Lombok Timur, NTB',
                 'password' => password_hash('pelanggan1', PASSWORD_DEFAULT),
                 'role' => 'user'
             ]

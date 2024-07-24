@@ -180,6 +180,7 @@
                                 <td>Pembayaran</td>
                                 <td>Expedisi</td>
                                 <td>Total Bayar</td>
+                                <td>Keterangan</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -194,6 +195,9 @@
                                     <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
                                     <td>
                                         <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                    </td>
+                                    <td>
+                                        <?= $order['catatan_pembatalan']; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
