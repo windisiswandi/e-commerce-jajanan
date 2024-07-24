@@ -66,7 +66,7 @@
         <?php else: ?>
             <div class="text-center space-y-4 py-8">
                 <p class="text-gray-400 text-xl">Keranjang belanja anda kosong</p>
-                <a href="<?= base_url('/'); ?>" class="px-3 py-2 bg-blue-500 text-white inline-block">Belanja Sekarang</a>
+                <a href="<?= base_url('/#products'); ?>" class="px-3 py-2 bg-blue-500 text-white inline-block">Belanja Sekarang</a>
             </div>
         <?php endif; ?>
     </div>

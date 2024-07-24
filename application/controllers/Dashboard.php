@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller {
         parent::__construct();
 		$this->load->model("Category_model");
 		$this->load->model("Product_model");
+		$this->load->model("order_model");
 		$this->load->library(["form_validation", "upload"]);
 
         $this->_data["products"] = $this->Product_model->get_all_products();
@@ -84,6 +85,7 @@ class Dashboard extends CI_Controller {
             redirect('Dashboard/kategori');
         }
     }
+// end kategori
 // produk
     public function products() {
         $this->_data['title'] = "Dashboard";
@@ -210,5 +212,36 @@ class Dashboard extends CI_Controller {
             redirect('Dashboard/products');
         }
     }
+// end product
+// pesanan
+    public function pesanan()
+    {
+        $this->_data['title'] = "Pesanan";
+        $this->_data['pesanan'] = true;
 
+        $orders = $this->order_model->get_order_with_user();
+        $dataOrders = [];
+
+        foreach($orders as $order) {
+            $order['total_item'] = $this->db->get_where('order_items', ['order_id' => $order['id']])->num_rows();
+            $status = $order['order_status'];
+            if (!isset($dataOrders[$status])) $dataOrders[$status] = [];
+
+            $dataOrders[$status][] = $order;
+        }
+
+        $this->_data['orders']=$dataOrders;
+		$this->load->view('dashboard/header', $this->_data);
+		$this->load->view('dashboard/pesanan', $this->_data);
+		$this->load->view('dashboard/footer');
+    }
+// end pesanan
+// pelanggans
+    public function pelanggan()
+    {
+        $this->_data['title'] = "Pelanggan";
+		$this->load->view('dashboard/header', $this->_data);
+		$this->load->view('dashboard/pelanggan', $this->_data);
+		$this->load->view('dashboard/footer');
+    }
 }

@@ -9,10 +9,10 @@
 </style>
 <div class="xl:container px-4 sm:px-8 py-5">
     <?php if($this->session->userdata('success')) : ?>
-        <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded relative my-3" role="alert">
+        <div id="alertku" class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded relative my-3" role="alert">
             <strong class="font-bold">Success!</strong>
             <span class="block sm:inline">Kami akan mengonfirmasi pembayaran anda terlebih dahulu sebelum paket dikirim.</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <span onclick="closeAlert()" class="absolute top-0 bottom-0 right-0 px-4 py-3">
                 <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 010 1.414L11.414 10l2.934 2.934a1 1 0 01-1.414 1.414L10 11.414l-2.934 2.934a1 1 0 01-1.414-1.414L8.586 10 5.652 7.066a1 1 0 011.414-1.414L10 8.586l2.934-2.934a1 1 0 011.414 0z"/></svg>
             </span>
         </div>
@@ -47,7 +47,7 @@
                             <?php foreach($orders['pending'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <span class="px-2 py-1 bg-yellow-300 text-black rounded-md text-[10px] inline-block">Belum bayar</span>
+                                        <span class="px-2 py-1 bg-yellow-300 text-black rounded-md text-[12px] inline-block">Belum bayar</span>
                                         <?= $order['order_number'] ?></td>
                                     <td><?= $order['total_item'] ?></td>
                                     <td><?= $order['order_date'] ?></td>
@@ -85,7 +85,7 @@
                             <?php foreach($orders['packed'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <a class="bg-yellow-300 text-yellow-800 font-semibold px-2 py-1 rounded text-[10px]">Diproses</a>
+                                        <a class="bg-yellow-300 text-yellow-800 font-semibold px-2 py-1 rounded text-[12px]">Diproses</a>
                                         <?= $order['order_number'] ?></td>
                                     <td><?= $order['total_item'] ?></td>
                                     <td><?= $order['order_date'] ?></td>
@@ -119,7 +119,7 @@
                             <?php foreach($orders['shipped'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <a class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[10px]">Dikirim</a>
+                                        <a class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[12px]">Dikirim</a>
                                         <?= $order['order_number'] ?></td>
                                     <td><?= $order['total_item'] ?></td>
                                     <td><?= $order['order_date'] ?></td>
@@ -153,7 +153,7 @@
                             <?php foreach($orders['delivered'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <a class="bg-green-200 text-green-800 font-semibold px-2 py-1 rounded text-[10px]">Delivered</a>
+                                        <a class="bg-green-200 text-green-800 font-semibold px-2 py-1 rounded text-[12px]">Delivered</a>
                                         <?= $order['order_number'] ?></td>
                                     <td><?= $order['total_item'] ?></td>
                                     <td><?= $order['order_date'] ?></td>
@@ -186,7 +186,7 @@
                             <?php foreach($orders['cancelled'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <a class="bg-red-200 text-red-800 font-semibold px-2 py-1 rounded text-[10px]">Cancelled</a>
+                                        <a class="bg-red-200 text-red-800 font-semibold px-2 py-1 rounded text-[12px]">Cancelled</a>
                                         <?= $order['order_number'] ?></td>
                                     <td><?= $order['total_item'] ?></td>
                                     <td><?= $order['order_date'] ?></td>
@@ -206,18 +206,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function orderStatus(data) {
-        $('#menu-order li').each(function (i, li) {
-            if($(li).data('status') == $(data).data('status')) $(li).addClass('text-blue-500 font-semibold')
-            else $(li).removeClass('text-blue-500 font-semibold')
-        })
-
-        $('.order-list').each(function(i, div) {
-            if($(div).data('status') == $(data).data('status')) $(div).removeClass('hidden')
-            else $(div).addClass('hidden')
-        })
-
-    }
-</script>

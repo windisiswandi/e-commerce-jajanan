@@ -6,6 +6,16 @@
     }
 </style>
 <div class="xl:container px-4 sm:px-8 py-5">
+    <?php if($this->session->userdata('errorFile')) : ?>
+        <div id="alertku" class="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded relative my-3" role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline"><?= $this->session->userdata('errorFile'); ?></span>
+            <span onclick="closeAlert()" id="close" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 010 1.414L11.414 10l2.934 2.934a1 1 0 01-1.414 1.414L10 11.414l-2.934 2.934a1 1 0 01-1.414-1.414L8.586 10 5.652 7.066a1 1 0 011.414-1.414L10 8.586l2.934-2.934a1 1 0 011.414 0z"/></svg>
+            </span>
+        </div>
+    <?php endif; ?>
+    <?php $this->session->unset_userdata('errorFile'); ?>
     <div class="flex items-start justify-center space-x-3">
         <div class="w-full lg:w-1/2">
             <div id="content" class="bg-white rounded-md w-full">
@@ -36,7 +46,7 @@
         <div class="bg-white rounded-md w-full">
                 <header class="bg-blue-500 p-3 text-white">Upload Bukti Pembayaran</header>
                 <div class="p-5">
-                    <form action="<?= base_url('order/payment/'.$order->id) ?>" method="post">
+                    <form action="<?= base_url('order/payment/'.$order->id) ?>" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="bank" class="font-bold text-sm">Atas Nama</label>
                             <input type="text" name="atas_nama" placeholder="Atas nama akun bank yang digunakan" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
@@ -51,7 +61,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="bank" class="font-bold text-sm">Bukti bayar</label>
-                            <input type="file" name="no_rekening" placeholder="Masukan No rekening" class="text-sm w-full rounded focus:outline-none p-1 mt-2 border border-slate-300" accept="image/*" require>
+                            <input type="file" name="bukti_transfer" placeholder="Masukan No rekening" class="text-sm w-full rounded focus:outline-none p-1 mt-2 border border-slate-300" accept="image/*" require>
                         </div>
 
                         <a href="<?= base_url('user/orders') ?>" class="bg-gray-500 text-white px-4 py-2 text-sm rounded">back</a>

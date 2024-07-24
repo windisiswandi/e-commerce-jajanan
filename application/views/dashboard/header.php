@@ -96,19 +96,19 @@
                   <p>Produk</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#tables">
+              <li class="nav-item <?= @$pesanan ? 'active' : '' ?>">
+                <a href="<?= base_url('dashboard/pesanan') ?>">
                  <i class="fas fa-truck"></i>
                   <p>Pesanan</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#maps">
+              <li class="nav-item <?= @$pelanggan ? 'active' : '' ?>">
+                <a href="<?= base_url('dashboard/pelanggan') ?>">
                   <i class="fas fa-users"></i>
                   <p>Pelanggan</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item <?= @$setting ? 'active' : '' ?>">
                 <a href="#maps">
                   <i class="fas fa-cog"></i>
                   <p>Setting</p>

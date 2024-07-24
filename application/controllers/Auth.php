@@ -115,7 +115,7 @@ class Auth extends CI_Controller {
 
             if ($this->db->insert("users", $data)) {
                  $ses_data = [
-                    "username" => $this->db->insert_id(),
+                    "id" => $this->db->insert_id(),
                     "username" => $data["username"],
                     "email" => $data["email"],
                     "role" => $data["role"],

@@ -196,7 +196,7 @@
                     </div>
                 </div>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body">
                 <div class="table-responsive">
                     <!-- Projects table -->
                     <table class="table mb-0">
@@ -216,9 +216,9 @@
                                     <td><?= "Rp".number_format($order->total_amount, 0, ".", "."); ?></td>
                                     <td>
                                         <?php if($order->order_status == "pending") : ?>
-                                            <span class="badge badge-black">Pending</span></td>
+                                            <span class="badge badge-black">Menunggu pembayaran</span></td>
                                         <?php elseif($order->order_status == "packed") : ?>
-                                            <span class="badge badge-warning">Sedang dikemas</span></td>
+                                            <span class="badge badge-warning">Menunggu konfirmasi</span></td>
                                         <?php elseif($order->order_status == "shipped") : ?>
                                             <span class="badge badge-primary">Dalam perjalanan</span></td>
                                         <?php elseif($order->order_status == "delivered") : ?>

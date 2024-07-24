@@ -238,6 +238,11 @@
     <script src="<?=base_url('assets/dashboard/js/setting-demo.js');?>"></script>
     <script src="<?=base_url('assets/dashboard/js/demo.js');?>"></script>
     <script>
+      $("#basic-datatables").DataTable({});
+      $("#basic-datatables2").DataTable({});
+      $("#basic-datatables3").DataTable({});
+      $("#basic-datatables4").DataTable({});
+      $("#basic-datatables5").DataTable({});
       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
         type: "line",
         height: "70",

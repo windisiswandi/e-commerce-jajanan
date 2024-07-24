@@ -36,12 +36,12 @@
                 <div class="slide w-full h-full bg-hero2 bg-cover flex justify-center items-center flex-col">
                     <h1 class="text-white text-xl sm:text-3xl lg:text-6xl px-8 sm:px-16 xl:px-28 text-center font-open-sans animate-fadeUp">Kami Menjual Segala Jenis Jajanan Khas Lombok</h1>
                     <p class="text-slate-300 my-3 md:my-6 text-[12px] md:text-lg">Rasakan Cita Rasa Lombok</p>
-                    <a href="#" class="px-4 py-2 text-[12px] md:text-base md:px-5 md:py-3 rounded-full bg-teal-600 text-white">Belanja Sekarang</a>
+                    <a href="#products" class="px-4 py-2 text-[12px] md:text-base md:px-5 md:py-3 rounded-full bg-teal-600 text-white">Belanja Sekarang</a>
                 </div>
                 <div class="slide w-full h-full bg-hero1 bg-cover flex justify-center items-center flex-col">
                     <h1 class="text-white text-xl sm:text-3xl lg:text-6xl px-8 sm:px-16 xl:px-28 text-center font-open-sans">Kuliner Lombok dengan jajanan khas yang menggoda selera.</h1>
                     <p class="text-slate-300 my-3 md:my-6 text-[12px] md:text-lg">Pesan online dan nikmati di mana saja!</p>
-                    <a href="#" class="px-4 py-2 text-[12px] md:text-base md:px-5 md:py-3 rounded-full bg-teal-600 text-white">Belanja Sekarang</a>
+                    <a href="#products" class="px-4 py-2 text-[12px] md:text-base md:px-5 md:py-3 rounded-full bg-teal-600 text-white">Belanja Sekarang</a>
                 </div>
             </div>
             <button id="prev" class="md:hidden group-hover:inline-block absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 hover:bg-opacity-60 text-lg py-3 px-2 text-white"><i class="fa-solid fa-chevron-left"></i></button>
@@ -73,7 +73,7 @@
     </div>
 <!-- end feature -->
 <!-- Product -->
-    <div class="py-4 sm:py-8 px-2 sm:px-8">
+    <div class="py-4 sm:py-8 px-2 sm:px-8" id="products">
         <div data-aos="fade-up" data-aos-duration="1000">
             <p class="text-green-700 font-semibold italic text-center text-lg">Produk Kami</p>
             <h1 class="text-center font-bold text-2xl md:text-5xl py-2 lg:py-8">Jajanan Khas Lombok</h1>

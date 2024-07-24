@@ -12,8 +12,12 @@ class Migration_create_orders_table extends CI_Migration {
                 'auto_increment' => TRUE
             ),
             'order_number' => array(
-                'type' => 'TEXT',
+                'type' => 'VARCHAR',
                 'constraint' => "20"
+            ),
+            'no_resi' => array(
+                'type' => 'VARCHAR',
+                'constraint' => "20",
             ),
             'user_id' => array(
                 'type' => 'INT',
