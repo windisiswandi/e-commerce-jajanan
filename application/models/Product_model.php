@@ -5,6 +5,7 @@ class Product_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
+        date_default_timezone_set("Asia/Makassar");
     }
 
     public function get_all_products() {
@@ -30,5 +31,31 @@ class Product_model extends CI_Model {
 
     public function delete_product($id) {
         return $this->db->where('id', $id)->delete('products');
+    }
+
+    public function get_total_sales() {
+        $this->db->select('SUM(products.product_price * order_items.qty) AS total_sales');
+        $this->db->from('order_items');
+        $this->db->join('products', 'order_items.product_id = products.id');
+        $this->db->join('orders', 'orders.id = order_items.order_id');
+        $this->db->where('MONTH(orders.order_date)', date('m'));
+        $this->db->where('YEAR(orders.order_date)', date('Y'));
+        $this->db->where_in('orders.order_status', ['shipped', 'delivered']);
+        
+        $query = $this->db->get();
+        return $query->row()->total_sales;
+    }
+
+    public function get_total_modal() {
+        $this->db->select('SUM(products.product_modal * order_items.qty) AS total_modal');
+        $this->db->from('order_items');
+        $this->db->join('products', 'order_items.product_id = products.id');
+        $this->db->join('orders', 'orders.id = order_items.order_id');
+        $this->db->where('MONTH(orders.order_date)', date('m'));
+        $this->db->where('YEAR(orders.order_date)', date('Y'));
+        $this->db->where_in('orders.order_status', ['shipped', 'delivered']);
+
+        $query = $this->db->get();
+        return $query->row()->total_modal;
     }
 }

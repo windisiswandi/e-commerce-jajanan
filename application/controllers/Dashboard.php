@@ -19,7 +19,7 @@ class Dashboard extends CI_Controller {
                 ORDER BY FIELD(order_status, "packed", "pending", "shipped", "delivered", "cancelled") ASC,
                         `order_date` DESC  
                 LIMIT 6';
-        $query = $this->db->query($sql);
+
         $this->_data["orderan"] = $this->db->query($sql)->result();
         $this->_data["orders"] = $this->db->get('orders')->result();
 
@@ -34,6 +34,9 @@ class Dashboard extends CI_Controller {
 	{
         $this->_data['title'] = "Dashboard";
         $this->_data['dashboard'] = true;
+        $this->_data['sales_montly'] = $this->Product_model->get_total_sales();
+        $this->_data['modal_montly'] = $this->Product_model->get_total_modal();
+        // var_dump($this->_data['sales_daily']); die;
 		$this->load->view('dashboard/header', $this->_data);
 		$this->load->view('dashboard/index', $this->_data);
 		$this->load->view('dashboard/footer');
@@ -299,6 +302,7 @@ class Dashboard extends CI_Controller {
             $this->db->join('users', 'users.id = orders.user_id');
             $this->db->where('orders.order_date >=', $_GET['tgl_awal']);
             $this->db->where('orders.order_date <=', $_GET['tgl_akhir']);
+            $this->db->where_in('orders.order_status', ['shipped', 'delivered']);
             $orders = $this->db->get()->result_array();
 
             $this->_data['orders'] = [];

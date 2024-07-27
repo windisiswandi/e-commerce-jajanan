@@ -62,8 +62,13 @@
                                                     $totals += $order['total_amount']; 
                                                     echo "Rp ".number_format($order['total_amount'], 0, ".", "."); ?>
                                                 </td>
-                                                <td class="text-uppercase">
-                                                    <?= $order['order_status']; ?>
+                                                <td class="text-capitalize">
+                                                    <?php if($order['order_status'] == "shipped") : ?>
+                                                        <span class="badge badge-primary">Dikirim</span>
+                                                    <?php elseif($order['order_status'] == "delivered"): ?>
+                                                        <span class="badge badge-success">Selesai</span>
+                                                    <?php endif; ?>
+                                                    
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -98,7 +103,7 @@
                                                         <?php endif; ?>
                                                         <?= $prod['product_name']; ?></td>
                                                     <td><?= $prod['qty']; ?></td>
-                                                    <td><?= $prod['product_price']; ?></td>
+                                                    <td><?= "Rp ".number_format($prod['product_price'], 0, ".", "."); ?></td>
                                                     <td>
                                                         <?php 
                                                             $sub_total = $prod['qty'] * $prod['product_price'];
