@@ -8,22 +8,22 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="p-3">
                         <ul id="navMenu" class="nav nav-tabs">
-                            <li class="nav-item">
+                            <li class="nav-item" style="cursor: pointer;">
                                 <a class="nav-link active" data-status="pending" onclick="orderStatus(this)">Pending</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-status="packed" onclick="orderStatus(this)" href="#">Dikemas</a>
+                            <li class="nav-item" style="cursor: pointer;">
+                                <a class="nav-link" data-status="packed" onclick="orderStatus(this)">Dikemas</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-status="shipped" onclick="orderStatus(this)" href="#">Dikirim</a>
+                            <li class="nav-item" style="cursor: pointer;">
+                                <a class="nav-link" data-status="shipped" onclick="orderStatus(this)">Dikirim</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-status="delivered" onclick="orderStatus(this)" href="#">Selesai</a>
+                            <li class="nav-item" style="cursor: pointer;">
+                                <a class="nav-link" data-status="delivered" onclick="orderStatus(this)">Selesai</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-status="cancelled" onclick="orderStatus(this)" href="#">Cancelled</a>
+                            <li class="nav-item" style="cursor: pointer;">
+                                <a class="nav-link" data-status="cancelled" onclick="orderStatus(this)">Cancelled</a>
                             </li>
                         </ul>
                     </div>
@@ -48,7 +48,7 @@
                                                 <td>
                                                     <span class="badge badge-warning">Belum Bayar</span>
                                                     <?= $order['order_number']; ?></td>
-                                                <td><?= $order['name']; ?></td>
+                                                <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td>JNE</td>
@@ -69,7 +69,7 @@
                                             <th>Nama Penerima</th>
                                             <th>Jumlah Item</th>
                                             <th>Tanggal Order</th>
-                                            <th>Expedisi</th>
+                                            <th>Pembayaran</th>
                                             <th>Total Bayar</th>
                                             <th>Action</th>
                                         </tr>
@@ -80,10 +80,10 @@
                                             <tr>
                                                 <td>
                                                     <?= $order['order_number']; ?></td>
-                                                <td><?= $order['name']; ?></td>
+                                                <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
-                                                <td>JNE</td>
+                                                <td class="text-uppercase"><?= $order['payment_method']; ?></td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                                 <td>
                                                     <a href="<?= base_url('dashboard/confirm_pesanan/'.$order['order_id']); ?>" class="badge badge-info">Proses</a>
@@ -100,12 +100,14 @@
                                 <table id="basic-datatables3" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>No Order</th>
+                                            <th>No Resi</th>
                                             <th>Nama Penerima</th>
                                             <th>Jumlah Item</th>
                                             <th>Tanggal Order</th>
-                                            <th>Expedisi</th>
+                                            <th>Tanggal Dikirim</th>
+                                            <th>Pembayaran</th>
                                             <th>Total Bayar</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,13 +115,17 @@
                                             <?php foreach($orders['shipped'] as $order) : ?>
                                             <tr>
                                                 <td>
-                                                    <span class="badge badge-warning">Belum Bayar</span>
-                                                    <?= $order['order_number']; ?></td>
-                                                <td><?= $order['name']; ?></td>
+                                                    <a href="https://jne.co.id/tracking-package" target="__blank" class="badge badge-primary text-white">Lacak</a>
+                                                    <?= $order['no_resi']; ?> (JNE)</td>
+                                                <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
-                                                <td>JNE</td>
+                                                <td><?= $order['date_shipped']; ?></td>
+                                                <td class="text-uppercase"><?= $order['payment_method']; ?></td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td>
+                                                    <a href="<?= base_url('dashboard/order_delivered/'. $order['order_id']); ?>" class="badge badge-success text-white">Packet diterima</a>
+                                                </td>
                                             </tr>
                                             <?php endforeach; ?>
                                         <?php endif;?>
@@ -132,11 +138,12 @@
                                 <table id="basic-datatables4" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>No Order</th>
+                                            <th>No resi</th>
                                             <th>Nama Penerima</th>
                                             <th>Jumlah Item</th>
-                                            <th>Tanggal Order</th>
-                                            <th>Expedisi</th>
+                                            <th>Tanggal dikirim</th>
+                                            <th>Tanggal diterima</th>
+                                            <th>Pembayaran</th>
                                             <th>Total Bayar</th>
                                         </tr>
                                     </thead>
@@ -145,12 +152,13 @@
                                             <?php foreach($orders['delivered'] as $order) : ?>
                                             <tr>
                                                 <td>
-                                                    <span class="badge badge-warning">Belum Bayar</span>
-                                                    <?= $order['order_number']; ?></td>
-                                                <td><?= $order['name']; ?></td>
+                                                    <span class="badge badge-success">Delivered</span>
+                                                    <?= $order['no_resi']; ?> (JNE)</td>
+                                                <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
-                                                <td><?= $order['order_date']; ?></td>
-                                                <td>JNE</td>
+                                                <td><?= $order['date_shipped']; ?></td>
+                                                <td><?= $order['date_delivered']; ?></td>
+                                                <td class="text-uppercase"><?= $order['payment_method']; ?></td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -180,7 +188,7 @@
                                                 <td>
                                                     <span class="badge badge-danger">Cancelled</span>
                                                     <?= $order['order_number']; ?></td>
-                                                <td><?= $order['name']; ?></td>
+                                                <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td>JNE</td>

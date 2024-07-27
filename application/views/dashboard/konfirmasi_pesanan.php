@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="text-end">
                                     <button class="p-2 badge badge-danger mb-4 fs-6" data-bs-toggle="modal" data-bs-target="#cancelOrder"><i class="fas fa-times-circle"></i> Batalkan pesanan</button>
-                                    <button class="p-2 badge badge-primary mb-4 fs-6"><i class="fas fa-truck"></i> Kirim</button>
+                                    <button class="p-2 badge badge-primary mb-4 fs-6" data-bs-toggle="modal" data-bs-target="#kirimOrder"><i class="fas fa-truck"></i> Kirim</button>
                                 </div>
                             </div>
                         </div>
@@ -152,6 +152,31 @@
       </div>
     </div>
 <?php endif; ?>
+
+<form action="<?= base_url('dashboard/send_order/'.$order['order_id']) ?>" method="post">
+    <div class="modal fade" id="kirimOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Kirim Barang</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="mb-3">
+                        <label for="resi" class="form-label mb-3">No. Resi Barang</label>
+                        <input type="text" class="form-control form-control fw-bold" name="no_resi" placeholder="Masukan no resi barang" required>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-black" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <form action="<?= base_url('dashboard/cancel_order/'.$order['order_id']) ?>" method="post">
     <div class="modal fade" id="cancelOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

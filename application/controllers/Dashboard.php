@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
     function __construct() 
     {
         parent::__construct();
+        date_default_timezone_set("Asia/Makassar");
 		$this->load->model("Category_model");
 		$this->load->model("Product_model");
 		$this->load->model("order_model");
@@ -255,12 +256,70 @@ class Dashboard extends CI_Controller {
         ];
 
         if ($this->order_model->update($order_id, $data)) {
-            $this->session->set_userdata('success', "Pembatalan orderan berhasil");
             $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success! </strong>Pembatalan orderan berhasil<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
             redirect('dashboard/pesanan');
         }
     }
+
+    public function send_order($order_id)
+    {
+       $data = [
+        "date_shipped" => date("Y-m-d H:i:s"),
+        "order_status" => "shipped",
+        "no_resi" => $this->input->post('no_resi')
+       ];
+
+       if ($this->order_model->update($order_id, $data)) {
+            $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success! </strong>Pengiriman barang berhasil<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            redirect('dashboard/pesanan');
+       }
+    }
+
+    public function order_delivered($order_id)
+    {
+        $data = [
+            "date_delivered" => date("Y-m-d H:i:s"),
+            "order_status" => "delivered",
+        ];
+
+        if ($this->order_model->update($order_id, $data)) {
+            $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success! </strong>Transaksi selesai<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            redirect('dashboard/pesanan');
+        }
+    }
 // end pesanan
+// laporan_penjualan
+    public function laporan_penjualan()
+    {
+        $this->_data['laporan']= true;
+
+        if (isset($_GET['tgl_awal']) && isset($_GET['tgl_akhir'])) {
+            $this->db->select('orders.id as order_id, orders.*, users.name, users.id as user_id');
+            $this->db->from('orders');
+            $this->db->join('users', 'users.id = orders.user_id');
+            $this->db->where('orders.order_date >=', $_GET['tgl_awal']);
+            $this->db->where('orders.order_date <=', $_GET['tgl_akhir']);
+            $orders = $this->db->get()->result_array();
+
+            $this->_data['orders'] = [];
+            foreach ($orders as $order) {
+                $order_id = $order['order_id'];
+                $order['total_item'] = $this->db->get_where('order_items', ['order_id' => $order_id])->num_rows();   
+                $this->db->select("order_items.*, products.id as product_id, products.*");
+                $this->db->from("order_items");
+                $this->db->join("products", "products.id = order_items.product_id");
+                $this->db->where("order_items.order_id", $order_id);
+                $order['products'] = $this->db->get()->result_array();
+                
+                $this->_data['orders'][] = $order;
+            }
+        }
+
+		$this->load->view('dashboard/header', $this->_data);
+		$this->load->view('dashboard/laporan_penjualan', $this->_data);
+		$this->load->view('dashboard/footer');
+    }
+// end penjualan
 // pelanggans
     public function pelanggan()
     {

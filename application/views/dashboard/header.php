@@ -108,10 +108,10 @@
                   <p>Pelanggan</p>
                 </a>
               </li>
-              <li class="nav-item <?= @$setting ? 'active' : '' ?>">
-                <a href="#maps">
-                  <i class="fas fa-cog"></i>
-                  <p>Setting</p>
+              <li class="nav-item <?= @$laporan ? 'active' : '' ?>">
+                <a href="<?= base_url('dashboard/laporan_penjualan') ?>">
+                  <i class="fas fa-file"></i>
+                  <p>Laporan Penjualan</p>
                 </a>
               </li>
             </ul>

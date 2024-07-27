@@ -107,11 +107,11 @@
                     <table class="table-auto w-full mb-8 text-[12px] sm:text-sm mt-8">
                         <thead class="font-semibold">
                             <tr>
-                                <td>No. Order</td>
+                                <td>No. Resi</td>
                                 <td>Jumlah Item</td>
                                 <td>Tanggal Order</td>
+                                <td>Tanggal Dikirim</td>
                                 <td>Pembayaran</td>
-                                <td>Expedisi</td>
                                 <td>Total Bayar</td>
                             </tr>
                         </thead>
@@ -119,12 +119,12 @@
                             <?php foreach($orders['shipped'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <a class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[12px]">Dikirim</a>
-                                        <?= $order['order_number'] ?></td>
+                                        <a href="https://jne.co.id/tracking-package" target="__blank" class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[12px]">Lacak</a>
+                                        <?= $order['no_resi'] ?> (JNE)</td>
                                     <td><?= $order['total_item'] ?></td>
                                     <td><?= $order['order_date'] ?></td>
+                                    <td><?= $order['date_shipped'] ?></td>
                                     <td><?= $order['payment_method'] ?></td>
-                                    <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
                                     <td>
                                         <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
                                     </td>
@@ -141,11 +141,11 @@
                     <table class="table-auto w-full mb-8 text-[12px] sm:text-sm mt-8">
                         <thead class="font-semibold">
                             <tr>
-                                <td>No. Order</td>
+                                <td>No. Resi</td>
                                 <td>Jumlah Item</td>
-                                <td>Tanggal Order</td>
+                                <td>Tanggal Dikirim</td>
+                                <td>Tanggal Diterima</td>
                                 <td>Pembayaran</td>
-                                <td>Expedisi</td>
                                 <td>Total Bayar</td>
                             </tr>
                         </thead>
@@ -154,10 +154,11 @@
                                 <tr>
                                     <td>
                                         <a class="bg-green-200 text-green-800 font-semibold px-2 py-1 rounded text-[12px]">Delivered</a>
-                                        <?= $order['order_number'] ?></td>
+                                        <?= $order['no_resi'] ?> (JNE)</td>
                                     <td><?= $order['total_item'] ?></td>
-                                    <td><?= $order['order_date'] ?></td>
-                                    <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
+                                    <td><?= $order['date_shipped'] ?></td>
+                                    <td><?= $order['date_delivered'] ?></td>
+                                    <td><?= $order['payment_method'] ?></td>
                                     <td>
                                         <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
                                     </td>
