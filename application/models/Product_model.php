@@ -43,7 +43,8 @@ class Product_model extends CI_Model {
         $this->db->where_in('orders.order_status', ['shipped', 'delivered']);
         
         $query = $this->db->get();
-        return $query->row()->total_sales;
+        $total_sales = $query->row()->total_sales ? query->row()->total_sales : 0;
+        return $total_sales;
     }
 
     public function get_total_modal() {

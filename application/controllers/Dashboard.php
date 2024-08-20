@@ -251,6 +251,19 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/footer');
     }
 
+    public function payment_invalid($order_id)
+    {
+        $data = [
+            "order_status" => "pending",
+            "catatan_pembatalan" => "Bukti pembayaran tidak valid",
+        ];
+
+        if ($this->order_model->update($order_id, $data)) {
+            $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success! </strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            redirect('dashboard/pesanan');
+        }   
+    }
+
     public function cancel_order($order_id)
     {
         $data = [

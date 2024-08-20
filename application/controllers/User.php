@@ -90,6 +90,8 @@ class User extends CI_Controller {
     public function payment($order_id) 
     {
         $this->_data['order'] = $this->db->get_where('orders', ['id' => $order_id])->row();
+        $datsdfa = $this->db->get_where('payments', ['order_id' => $order_id])->row();
+        $this->_data['dataPayment'] = $this->db->get_where('payments', ['order_id' => $order_id])->row();
         if ($this->_data['order']->order_status !== "pending") {
             redirect('user/orders');
         }

@@ -16,8 +16,8 @@
         </div>
     <?php endif; ?>
     <?php $this->session->unset_userdata('errorFile'); ?>
-    <div class="flex items-start justify-center space-x-3">
-        <div class="w-full lg:w-1/2">
+    <div class="flex flex-col md:flex-row items-start justify-center space-y-4 md:space-y-0 md:space-x-3">
+        <div class="w-full md:w-1/2">
             <div id="content" class="bg-white rounded-md w-full">
                 <header class="bg-blue-500 p-3 text-white">No Rekening Toko</header>
                 <div class="p-5">
@@ -42,22 +42,25 @@
                 </div>
             </div>
         </div>
-        <div class="w-full lg:w-1/2">
+        <div class="w-full md:w-1/2">
         <div class="bg-white rounded-md w-full">
                 <header class="bg-blue-500 p-3 text-white">Upload Bukti Pembayaran</header>
                 <div class="p-5">
                     <form action="<?= base_url('order/payment/'.$order->id) ?>" method="post" enctype="multipart/form-data">
+                        <?php if(@$dataPayment) : ?>
+                            <input type="hidden" name="data_payment" value="true">
+                        <?php endif; ?>
                         <div class="mb-3">
                             <label for="bank" class="font-bold text-sm">Atas Nama</label>
-                            <input type="text" name="atas_nama" placeholder="Atas nama akun bank yang digunakan" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
+                            <input type="text" name="atas_nama" value="<?= @$dataPayment ? $dataPayment->atas_nama : '' ?>" placeholder="Atas nama akun bank yang digunakan" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
                         </div>
                         <div class="mb-3">
                             <label for="bank" class="font-bold text-sm">Nama Bank</label>
-                            <input type="text" name="bank_name" placeholder="Masukan nama bank" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
+                            <input type="text" name="bank_name" value="<?= @$dataPayment ? $dataPayment->bank_name : '' ?>" placeholder="Masukan nama bank" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
                         </div>
                         <div class="mb-3">
                             <label for="bank" class="font-bold text-sm">No Rekening</label>
-                            <input type="text" name="no_rekening" placeholder="Masukan No rekening" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
+                            <input type="text" name="no_rekening" value="<?= @$dataPayment ? $dataPayment->no_rekening : '' ?>" placeholder="Masukan No rekening" class="text-sm w-full rounded focus:outline-none p-2 mt-2 border border-slate-300" required>
                         </div>
                         <div class="mb-3">
                             <label for="bank" class="font-bold text-sm">Bukti bayar</label>

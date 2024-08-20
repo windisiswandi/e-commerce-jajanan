@@ -51,7 +51,7 @@
                                                 <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
-                                                <td>JNE</td>
+                                                <td><i class="fas fa-truck"></i> JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -70,6 +70,7 @@
                                             <th>Jumlah Item</th>
                                             <th>Tanggal Order</th>
                                             <th>Pembayaran</th>
+                                            <th>Expedisi</th>
                                             <th>Total Bayar</th>
                                             <th>Action</th>
                                         </tr>
@@ -84,6 +85,7 @@
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td class="text-uppercase"><?= $order['payment_method']; ?></td>
+                                                <td><i class="fas fa-truck"></i> JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                                 <td>
                                                     <a href="<?= base_url('dashboard/confirm_pesanan/'.$order['order_id']); ?>" class="badge badge-info">Proses</a>
@@ -106,6 +108,7 @@
                                             <th>Tanggal Order</th>
                                             <th>Tanggal Dikirim</th>
                                             <th>Pembayaran</th>
+                                            <th>Expedisi</th>
                                             <th>Total Bayar</th>
                                             <th>Action</th>
                                         </tr>
@@ -116,12 +119,13 @@
                                             <tr>
                                                 <td>
                                                     <a href="https://jne.co.id/tracking-package" target="__blank" class="badge badge-primary text-white">Lacak</a>
-                                                    <?= $order['no_resi']; ?> (JNE)</td>
+                                                    <?= $order['no_resi']; ?></td>
                                                 <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td><?= $order['date_shipped']; ?></td>
                                                 <td class="text-uppercase"><?= $order['payment_method']; ?></td>
+                                                <td><i class="fas fa-truck"></i> JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                                 <td>
                                                     <a href="<?= base_url('dashboard/order_delivered/'. $order['order_id']); ?>" class="badge badge-success text-white">Packet diterima</a>
@@ -144,6 +148,7 @@
                                             <th>Tanggal dikirim</th>
                                             <th>Tanggal diterima</th>
                                             <th>Pembayaran</th>
+                                            <th>Expedisi</th>
                                             <th>Total Bayar</th>
                                         </tr>
                                     </thead>
@@ -159,6 +164,7 @@
                                                 <td><?= $order['date_shipped']; ?></td>
                                                 <td><?= $order['date_delivered']; ?></td>
                                                 <td class="text-uppercase"><?= $order['payment_method']; ?></td>
+                                                <td><i class="fas fa-truck"></i> JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -176,7 +182,6 @@
                                             <th>Nama Penerima</th>
                                             <th>Jumlah Item</th>
                                             <th>Tanggal Order</th>
-                                            <th>Expedisi</th>
                                             <th>Total Bayar</th>
                                             <th>Keterangan</th>
                                         </tr>
@@ -191,7 +196,6 @@
                                                 <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
-                                                <td>JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                                 <td><?= $order['catatan_pembatalan']; ?></td>
                                             </tr>

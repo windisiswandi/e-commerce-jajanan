@@ -53,6 +53,7 @@ class Order extends CI_Controller {
     public function payment($order_id) 
     {
         $user_id = $this->session->userdata('id');
+        $dataPayment = $this->input->post('data_payment') ? true:false;
         $data = [
             "user_id" => $user_id,
             "order_id" => $order_id,
@@ -85,11 +86,24 @@ class Order extends CI_Controller {
             redirect('user/payment/'.$order_id);
         }
 
-        if ($this->db->insert("payments", $data)) {
-            $this->db->where('id', $order_id)->update('orders', ['order_status' => 'packed']);
-            $this->session->set_userdata('success', true);
-            redirect('user/orders');
+        if ($dataPayment) {
+            $this->db->where('order_id', $order_id);
+            if ($this->db->update("payments", $data)) {
+                $this->db->where('id', $order_id)->update('orders', ['order_status' => 'packed']);
+                $this->session->set_userdata('success', true);
+                redirect('user/orders');
+            }
+        }else {
+            if ($this->db->insert("payments", $data)) {
+                $this->db->where('id', $order_id)->update('orders', ['order_status' => 'packed']);
+                $this->session->set_userdata('success', true);
+                redirect('user/orders');
+            }
         }
+    }
+
+    public function update_payment($order_id) : Returntype {
+        
     }
 
     public function cancel($order_id)

@@ -16,8 +16,13 @@
                             <?php if($order['payment_method'] == "transfer" && isset($order['foto'])): ?>
                                 <div class="col-md-5 text-center">
                                     <img src="<?= base_url('assets/img/bukti_transfer/'.$order['foto']) ?>" alt="" srcset="" class="w-100" data-bs-toggle="modal" data-bs-target="#buktiPembayaran">
-                                    <h6 class="fw-bold text-start mt-1">Bukti Transfer</h6>
-                                    <div class="row align-items-center text-start">
+                                    
+                                    <div class="d-flex align-items-center justify-content-between mt-3">
+                                        <h6 class="fw-bold mt-2">Bukti Transfer</h6>
+                                        <a href="<?= base_url('dashboard/payment_invalid/'.$order['order_id']); ?>"> <button class="p-2 badge badge-danger fs-6">Tidak valid</button> </a>
+                                    </div>
+                                    
+                                    <div class="row align-items-center text-start mt-4">
                                         <label class="col-sm-4 col-form-label">Atas Nama</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['atas_nama']; ?>" disabled>
