@@ -166,7 +166,6 @@
                                 timeout: 500,
                             });
 
-                            window.location.reload();
                         }else {
                             iziToast.error({
                                 title: 'Error!',
@@ -176,6 +175,7 @@
                         }
 
                         // $("#cartItem").html(response.html)
+                        window.location.reload();
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
