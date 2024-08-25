@@ -11,7 +11,7 @@
     <?php if($this->session->userdata('success')) : ?>
         <div id="alertku" class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded relative my-3" role="alert">
             <strong class="font-bold">Success!</strong>
-            <span class="block sm:inline">Kami akan mengonfirmasi pembayaran anda terlebih dahulu sebelum paket dikirim.</span>
+            <span class="block sm:inline"><?= $this->session->userdata('success'); ?></span>
             <span onclick="closeAlert()" class="absolute top-0 bottom-0 right-0 px-4 py-3">
                 <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 010 1.414L11.414 10l2.934 2.934a1 1 0 01-1.414 1.414L10 11.414l-2.934 2.934a1 1 0 01-1.414-1.414L8.586 10 5.652 7.066a1 1 0 011.414-1.414L10 8.586l2.934-2.934a1 1 0 011.414 0z"/></svg>
             </span>
@@ -125,13 +125,13 @@
                                 <td>Pembayaran</td>
                                 <td>Expedisi</td>
                                 <td>Total Bayar</td>
+                                <td>#</td>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($orders['shipped'] as $order) : ?>
                                 <tr>
                                     <td>
-                                        <a href="https://jne.co.id/tracking-package" target="__blank" class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[12px]">Lacak</a>
                                         <p class="mt-1"><?= $order['no_resi'] ?></p>
                                     </td>
                                     <td><?= $order['total_item'] ?></td>
@@ -141,6 +141,12 @@
                                     <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
                                     <td>
                                         <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                    </td>
+                                    <td>
+                                        <a href="https://jne.co.id/tracking-package" target="__blank" class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[12px] lg:text-sm inline-block">Lacak</a>
+                                        <a href="<?= base_url('order/invoice/'.$order['id']); ?>" class="bg-yellow-300 text-yellow-800 font-semibold px-2 py-1 rounded text-[12px] lg:text-sm inline-block"><i class="fa-solid fa-eye"></i></a>
+                                        <br>
+                                        <a href="<?= base_url('order/delivered/'.$order['id']); ?>" class="inline-block text-center py-1 mt-3 lg:py-2 px-2 lg:px-3 border border-blue-600 text-blue-800 hover:bg-blue-600 hover:text-white rounded-md text-[10px] lg:text-sm">Pesanan diterima</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -161,6 +167,7 @@
                                 <td>Tanggal Diterima</td>
                                 <td>Pembayaran</td>
                                 <td>Total Bayar</td>
+                                <td>#</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -175,6 +182,9 @@
                                     <td><?= $order['payment_method'] ?></td>
                                     <td>
                                         <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                    </td>
+                                    <td>
+                                        <a href="<?= base_url('order/invoice/'.$order['id']); ?>" class="bg-yellow-300 text-yellow-800 font-semibold px-2 py-1 rounded text-[12px] lg:text-sm inline-block"><i class="fa-solid fa-eye"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

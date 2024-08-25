@@ -16,7 +16,11 @@
             <h2 class="text-red-500 text-xl sm:text-3xl font-semibold py-2"><?= "Rp". number_format($product->product_price, 0, '.', '.'); ?></h2>
             <div class="mt-5 flex items-center space-x-4">
                 <div class="text-base sm:text-lg py-3">Stock: <span class="font-bold"><?= $product->stock; ?></span></div>
-                <button data-id="<?= $product->id; ?>" onclick="addToCart(this)" class="px-4 py-2 rounded bg-blue-600 text-white"><i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
+                <?php if($product->stock > 0) : ?>
+                <button data-id="<?= $product->id; ?>" onclick="addToCart(this)" class="text-white rounded-full bg-blue-700 px-3 py-2 text-[12px] md:text-sm">Add to Cart</button>
+                <?php else: ?>
+                <button class="text-white rounded-full bg-blue-300 px-3 py-2 text-[12px] md:text-sm cursor-not-allowed" disabled>Add to Cart</button>
+                <?php endif; ?>
             </div>
             <div class="mt-5">
                 <h2 class="font-bold text-lg">Deskripsi</h2>

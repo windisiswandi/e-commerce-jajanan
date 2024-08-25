@@ -9,12 +9,13 @@ class Order extends CI_Controller {
 		parent::__construct();
         date_default_timezone_set("Asia/Makassar");
 		$this->load->model("cart_model");
-		// $this->load->model("User_model");
-		// $this->load->model("Product_model");
+		$this->load->model("order_model");
+		$this->load->model("Product_model");
+		$this->load->model("User_model");
 		$this->load->library("upload");
-		// $id = $this->session->userdata('id');
-        // $this->_data['user'] = $this->User_model->get_user($id);
-        // $this->_data['carts'] = $this->cart_model->get_where($id);
+		$id = $this->session->userdata('id');
+        $this->_data['user'] = $this->User_model->get_user($id);
+        $this->_data['carts'] = $this->cart_model->get_where($id);
 
         if (!$this->session->userdata("username")) redirect('auth/user_login');
         if ($this->session->userdata("role") == "admin") redirect('dashboard');
@@ -33,6 +34,15 @@ class Order extends CI_Controller {
             'payment_method' => $payment,
             'order_status' => $payment == 'transfer' ? 'pending' : 'packed',
         ];
+
+        foreach ($dataCarts as $item) {
+            $product = $this->Product_model->get_product($item->product_id);
+            
+            if ($product->stock < $item->qty) {
+                $this->session->set_userdata('error', "Stock tidak mencukupi");
+                redirect('cart');
+            }
+        }
 
         if($this->db->insert("orders", $data)) {
             $order_id=$this->db->insert_id();
@@ -90,20 +100,39 @@ class Order extends CI_Controller {
             $this->db->where('order_id', $order_id);
             if ($this->db->update("payments", $data)) {
                 $this->db->where('id', $order_id)->update('orders', ['order_status' => 'packed']);
-                $this->session->set_userdata('success', true);
+                $this->session->set_userdata('success', "Kami akan mengonfirmasi pembayaran anda terlebih dahulu sebelum paket dikirim.");
                 redirect('user/orders');
             }
         }else {
             if ($this->db->insert("payments", $data)) {
                 $this->db->where('id', $order_id)->update('orders', ['order_status' => 'packed']);
-                $this->session->set_userdata('success', true);
+                $this->session->set_userdata('success', "Kami akan mengonfirmasi pembayaran anda terlebih dahulu sebelum paket dikirim.");
                 redirect('user/orders');
             }
         }
     }
 
-    public function update_payment($order_id) : Returntype {
-        
+    public function invoice($order_id)
+    {
+        $this->_data['orders'] = $this->order_model->get_order_with_user($order_id);
+        $this->_data['title'] = "Toko Jajanan Lombok";
+
+        $this->load->view('components/header', $this->_data);
+		$this->load->view('invoice', $this->_data);
+		$this->load->view('components/footer');
+    }
+
+    public function delivered($order_id)
+    {
+        $data = [
+            "date_delivered" => date("Y-m-d H:i:s"),
+            "order_status" => "delivered",
+        ];
+
+        if ($this->order_model->update($order_id, $data)) {
+            $this->session->set_userdata('success', "Terimkasih telah berbelanja di toko kami.");
+            redirect('user/orders');
+        }
     }
 
     public function cancel($order_id)

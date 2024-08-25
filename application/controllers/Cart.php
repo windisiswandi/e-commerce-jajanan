@@ -23,7 +23,8 @@ class Cart extends CI_Controller {
 	{
         $user_id = $this->session->userdata('id');
 		// $this->_data['cart_items'] = $this->cart_model->get_cart_with_product($user_id);
-		$this->_data['title'] = "Toko Jajanan Lombok";
+        $this->_data['uniqcode'] = (int) str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+        $this->_data['title'] = "Toko Jajanan Lombok";
 		
 		$this->load->view('components/header', $this->_data);
 		$this->load->view('cart_list', $this->_data);
@@ -39,10 +40,13 @@ class Cart extends CI_Controller {
         ];
 
         $data_cart = $this->cart_model->get_cart($data);
+        $product = $this->Product_model->get_product($data["product_id"]);
 
         if ($data_cart) {
-            $data['qty'] = $data_cart->qty + 1;
-            $this->cart_model->update($data_cart->id, $data);
+            if ($product->stock > $data_cart->qty) {
+                $data['qty'] = $data_cart->qty + 1;
+                $this->cart_model->update($data_cart->id, $data);
+            }
         }else {
             $this->cart_model->insert($data);
         }
@@ -72,21 +76,37 @@ class Cart extends CI_Controller {
     public function api_add() 
     {
         $user_id = $this->session->userdata("id");
+        $qty = $this->input->post('qty');
+        
         $data = [
             "user_id" => $user_id,
             "product_id" => $this->input->post("id_product"),
-            "qty" => $this->input->post("qty")
+            "qty" => $qty
         ];
 
         $data_cart = $this->cart_model->get_cart($data);
+        $product = $this->Product_model->get_product($data["product_id"]);
 
-        if ($data_cart) {
+        if ($product->stock >= $qty) {
             $this->cart_model->update($data_cart->id, $data);
+            $this->_data['carts'] = $this->cart_model->get_cart_with_product($user_id);
+            
+            echo json_encode([
+                "status" => true,
+                "html" => $this->load->view('partial/cart_list_template', $this->_data, true)
+            ]);
+
+            return;
+
+        }else {
+            echo json_encode([
+                "status" => false, 
+                "msg" => "Stock tidak mencukupi", 
+                "html" => $this->load->view('partial/cart_list_template', $this->_data, true)
+            ]);
+            return;
         }
 
-        $this->_data['carts'] = $this->cart_model->get_cart_with_product($user_id);
-
-        return $this->load->view('partial/cart_list_template', $this->_data);
     }
 
 }

@@ -153,18 +153,29 @@
             if(e.keyCode == 13) {
                 const qty = $(data).val() == 0 ? 1 : $(data).val();
                 const id_product = $(data).data('product');
-                console.log({id_product, qty})
                 $.ajax({
                     url: `<?= base_url('cart/api_add/') ?>`, // Replace with your server upload URL
                     type: 'POST',
                     data: {id_product, qty},
                     success: function (response) {
-                        $("#cartItem").html(response)
-                        iziToast.success({
-                            title: 'OK',
-                            position: "topRight",
-                            timeout: 1000,
-                        });
+                        response = JSON.parse(response);
+                        if (response.status) { 
+                            iziToast.success({
+                                title: 'OK',
+                                position: "topRight",
+                                timeout: 500,
+                            });
+
+                            window.location.reload();
+                        }else {
+                            iziToast.error({
+                                title: 'Error!',
+                                message: response.msg,
+                                position: "topRight"
+                            });
+                        }
+
+                        // $("#cartItem").html(response.html)
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -200,7 +211,7 @@
 
         function paymentConfirm(total_amount = '') {
             $('#popup').toggleClass('hidden')
-            $('#total_amount').val(total_amount)
+            // $('#total_amount').val(total_amount)
         }
 
         function orderStatus(data) 

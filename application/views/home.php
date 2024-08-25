@@ -18,7 +18,11 @@
                         <h3 class="text-red-600 lg:text-lg"><?= "Rp". number_format($product->product_price, 0, '.', '.'); ?></h3>
                         <div class="flex justify-between mt-3 items-center text-sm">
                             <p class="text-[12px] md:text-base"><?= $product->sell; ?> Terjual</p>
+                            <?php if($product->stock > 0) : ?>
                             <button data-id="<?= $product->id; ?>" onclick="addToCart(this)" class="text-white rounded-full bg-blue-700 px-3 py-2 text-[12px] md:text-sm">Add to Cart</button>
+                            <?php else: ?>
+                            <button class="text-white rounded-full bg-blue-300 px-3 py-2 text-[12px] md:text-sm cursor-not-allowed" disabled>Add to Cart</button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -94,7 +98,12 @@
                         <h3 class="text-red-600 lg:text-lg"><?= "Rp". number_format($product->product_price, 0, '.', '.'); ?></h3>
                         <div class="flex justify-between mt-3 items-center text-sm">
                             <p class="text-[12px] md:text-base"><?= $product->sell; ?> Terjual</p>
+                            <?php if($product->stock > 0) : ?>
                             <button data-id="<?= $product->id; ?>" onclick="addToCart(this)" class="text-white rounded-full bg-blue-700 px-3 py-2 text-[12px] md:text-sm">Add to Cart</button>
+                            <?php else: ?>
+                            <button class="text-white rounded-full bg-blue-300 px-3 py-2 text-[12px] md:text-sm cursor-not-allowed" disabled>Add to Cart</button>
+                            <?php endif; ?>
+                            
                         </div>
                     </div>
                 </div>

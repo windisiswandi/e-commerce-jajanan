@@ -118,7 +118,6 @@
                                             <?php foreach($orders['shipped'] as $order) : ?>
                                             <tr>
                                                 <td>
-                                                    <a href="https://jne.co.id/tracking-package" target="__blank" class="badge badge-primary text-white">Lacak</a>
                                                     <?= $order['no_resi']; ?></td>
                                                 <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
@@ -128,6 +127,10 @@
                                                 <td><i class="fas fa-truck"></i> JNE</td>
                                                 <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
                                                 <td>
+                                                    <a href="https://jne.co.id/tracking-package" target="__blank" class="badge badge-primary text-white">Lacak</a>
+                                                    
+                                                    <a href="<?= base_url('dashboard/detail_pesanan/'.$order['order_id']); ?>" class="badge badge-warning"><i class="fas fa-eye"></i></a>
+                                                    <br>
                                                     <a href="<?= base_url('dashboard/order_delivered/'. $order['order_id']); ?>" class="badge badge-success text-white">Packet diterima</a>
                                                 </td>
                                             </tr>
@@ -158,6 +161,8 @@
                                             <tr>
                                                 <td>
                                                     <span class="badge badge-success">Delivered</span>
+                                                    <a href="<?= base_url('dashboard/detail_pesanan/'.$order['order_id']); ?>" class="badge badge-warning"><i class="fas fa-eye"></i></a>
+                                                    <br>
                                                     <?= $order['no_resi']; ?> (JNE)</td>
                                                 <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>

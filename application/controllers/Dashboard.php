@@ -240,6 +240,16 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/footer');
     }
 
+    public function detail_pesanan($order_id)
+    {
+        $this->_data['title'] = "Pesanan";
+        $this->_data['pesanan'] = true;
+        $this->_data['order'] = $this->order_model->get_order_with_user($order_id);
+
+		$this->load->view('dashboard/header', $this->_data);
+		$this->load->view('dashboard/detail_pesanan', $this->_data);
+		$this->load->view('dashboard/footer');
+    }
     public function confirm_pesanan($order_id)
     {
         $this->_data['title'] = "Pesanan";
@@ -284,6 +294,17 @@ class Dashboard extends CI_Controller {
         "order_status" => "shipped",
         "no_resi" => $this->input->post('no_resi')
        ];
+
+       $product_order = $this->order_model->get_product_order($order_id);
+    //    var_dump($product_order);
+    //    die();
+
+        foreach ($product_order as $key => $product) {
+            $product_sell = $product->sell + $product->qty;
+            $product_stoct = $product->stock - $product->qty;
+
+            $this->Product_model->update_product($product->product_id, ["sell" => $product_sell, "stock" => $product_stoct]);
+        }
 
        if ($this->order_model->update($order_id, $data)) {
             $this->session->set_userdata('success', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success! </strong>Pengiriman barang berhasil<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

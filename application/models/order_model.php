@@ -62,4 +62,14 @@ class order_model extends CI_Model {
         
         return $query;
     }
+
+    public function get_product_order($order_id)
+    {
+        $this->db->select('order_items.product_id as item_product_id, order_items.qty, products.id as product_id, products.*');
+        $this->db->from('order_items');
+        $this->db->join('products', 'products.id = order_items.product_id');
+        $this->db->where('order_items.order_id', $order_id);
+
+        return $this->db->get()->result();
+    }
 }

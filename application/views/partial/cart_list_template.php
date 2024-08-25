@@ -5,6 +5,7 @@
                     <thead class="font-bold">
                         <tr class="">
                             <td>Nama Barang</td>
+                            <td>Stock</td>
                             <td>Kuantitas</td>
                             <td>Harga</td>
                             <td>Sub Total</td>
@@ -26,6 +27,7 @@
                                     <div class="truncate"><?= $item->product_name; ?></div>
                                 </div>
                             </td>
+                            <td><?= $item->stock; ?></td>
                             <td>
                                 <input class="border w-16 text-center border-slate-300 p-2 rounded-md focus:outline-none" type="number" min="1" value="<?= $item->qty; ?>" onkeydown="add_qty(event, this)" data-product="<?= $item->product_id; ?>">
                             </td>

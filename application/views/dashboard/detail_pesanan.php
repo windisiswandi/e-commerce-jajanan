@@ -13,36 +13,8 @@
                     <div class="card-body">
                         
                         <div class="row">
-                            <?php if($order['payment_method'] == "transfer" && isset($order['foto'])): ?>
-                                <div class="col-md-5 text-center">
-                                    <img src="<?= base_url('assets/img/bukti_transfer/'.$order['foto']) ?>" alt="" srcset="" class="w-100" data-bs-toggle="modal" data-bs-target="#buktiPembayaran">
-                                    
-                                    <div class="d-flex align-items-center justify-content-between mt-3">
-                                        <h6 class="fw-bold mt-2">Bukti Transfer</h6>
-                                        <a href="<?= base_url('dashboard/payment_invalid/'.$order['order_id']); ?>"> <button class="p-2 badge badge-danger fs-6">Tidak valid</button> </a>
-                                    </div>
-                                    
-                                    <div class="row align-items-center text-start mt-4">
-                                        <label class="col-sm-4 col-form-label">Atas Nama</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['atas_nama']; ?>" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center text-start">
-                                        <label class="col-sm-4 col-form-label">Bank</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['bank_name']; ?>" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center text-start">
-                                        <label class="col-sm-4 col-form-label">No Rekening</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['no_rekening']; ?>" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            <div class="col-md-7">
+
+                        <div class="col-md-7">
                                 <div class="row align-items-center mb-1">
                                     <label class="col-sm-4 col-form-label">No. Order</label>
                                     <div class="col-sm-8">
@@ -85,10 +57,37 @@
                                         <textarea class="form-control" rows="5" disabled><?= $order['address']; ?></textarea>
                                     </div>
                                 </div>
-                                <div class="text-end">
-                                    <button class="p-2 badge badge-danger mb-4 fs-6" data-bs-toggle="modal" data-bs-target="#cancelOrder"><i class="fas fa-times-circle"></i> Batalkan pesanan</button>
-                                    <button class="p-2 badge badge-primary mb-4 fs-6" data-bs-toggle="modal" data-bs-target="#kirimOrder"><i class="fas fa-truck"></i> Kirim</button>
+                            </div>
+                            <?php if($order['payment_method'] == "transfer" && isset($order['foto'])): ?>
+                                <div class="col-md-5 text-center">
+                                    
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-bold mt-2">Bukti Transfer</h6>
+                                        <button class="p-2 badge badge-primary fs-6" data-bs-toggle="modal" data-bs-target="#buktiPembayaran">Lihat</button>
+                                    </div>
+                                    
+                                    <div class="row align-items-center text-start mt-4">
+                                        <label class="col-sm-4 col-form-label">Atas Nama</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['atas_nama']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center text-start">
+                                        <label class="col-sm-4 col-form-label">Bank</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['bank_name']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center text-start">
+                                        <label class="col-sm-4 col-form-label">No Rekening</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= $order['no_rekening']; ?>" disabled>
+                                        </div>
+                                    </div>
                                 </div>
+                            <?php endif; ?>
+                            <div class="text-end">
+                                <!-- <button class="p-2 badge badge-black mb-4 fs-6"><i class="fas fa-print"></i> Cetak Invoice</button> -->
                             </div>
                         </div>
                         <hr>
@@ -159,52 +158,3 @@
       </div>
     </div>
 <?php endif; ?>
-
-<form action="<?= base_url('dashboard/send_order/'.$order['order_id']) ?>" method="post">
-    <div class="modal fade" id="kirimOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Kirim Barang</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    
-                    <div class="mb-3">
-                        <label for="resi" class="form-label mb-3">No. Resi Barang</label>
-                        <input type="text" class="form-control form-control fw-bold" name="no_resi" placeholder="Masukan no resi barang" required>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-black" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-<form action="<?= base_url('dashboard/cancel_order/'.$order['order_id']) ?>" method="post">
-    <div class="modal fade" id="cancelOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Konfirmasi Pembatalan</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    
-                    <div class="mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="catatan" placeholder="Masukan alasan pembatalan" required></textarea>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-black" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
