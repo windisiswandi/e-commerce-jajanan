@@ -14,6 +14,7 @@ class Cart extends CI_Controller {
 		$id = $this->session->userdata('id');
         $this->_data['user'] = $this->User_model->get_user($id);
         $this->_data['carts'] = $this->cart_model->get_cart_with_product($id);
+        $this->_data['uniqcode'] = (int) str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
         if (!$this->session->userdata("username")) redirect('auth/user_login');
         if ($this->session->userdata("role") == "admin") redirect('dashboard');
@@ -23,7 +24,6 @@ class Cart extends CI_Controller {
 	{
         $user_id = $this->session->userdata('id');
 		// $this->_data['cart_items'] = $this->cart_model->get_cart_with_product($user_id);
-        $this->_data['uniqcode'] = (int) str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
         $this->_data['title'] = "Toko Jajanan Lombok";
 		
 		$this->load->view('components/header', $this->_data);
@@ -93,7 +93,8 @@ class Cart extends CI_Controller {
             
             echo json_encode([
                 "status" => true,
-                "html" => $this->load->view('partial/cart_list_template', $this->_data, true)
+                "list_item" => $this->load->view('partial/cart_list_template', $this->_data, true),
+                "data_invoice" => $this->load->view('partial/card_data_invoice', $this->_data, true)
             ]);
 
             return;
@@ -102,7 +103,8 @@ class Cart extends CI_Controller {
             echo json_encode([
                 "status" => false, 
                 "msg" => "Stock tidak mencukupi", 
-                "html" => $this->load->view('partial/cart_list_template', $this->_data, true)
+                "list_item" => $this->load->view('partial/cart_list_template', $this->_data, true),
+                "data_invoice" => $this->load->view('partial/card_data_invoice', $this->_data, true)
             ]);
             return;
         }

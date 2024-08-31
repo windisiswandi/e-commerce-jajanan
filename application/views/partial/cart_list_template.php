@@ -29,7 +29,7 @@
                             </td>
                             <td><?= $item->stock; ?></td>
                             <td>
-                                <input class="border w-16 text-center border-slate-300 p-2 rounded-md focus:outline-none" type="number" min="1" value="<?= $item->qty; ?>" onkeydown="add_qty(event, this)" data-product="<?= $item->product_id; ?>">
+                                <input class="border w-16 text-center border-slate-300 p-2 rounded-md focus:outline-none" type="number" min="1" value="<?= $item->qty; ?>" onkeydown="add_qty(event, this)" onchange="add_qty(event, this)" data-product="<?= $item->product_id; ?>">
                             </td>
                             <td><?= "Rp".number_format($item->product_price,0,".","."); ?></td>
                             <td>

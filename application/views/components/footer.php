@@ -150,42 +150,38 @@
 
         function add_qty(e, data) 
         {
-            if(e.keyCode == 13) {
-                const qty = $(data).val() == 0 ? 1 : $(data).val();
-                const id_product = $(data).data('product');
-                $.ajax({
-                    url: `<?= base_url('cart/api_add/') ?>`, // Replace with your server upload URL
-                    type: 'POST',
-                    data: {id_product, qty},
-                    success: function (response) {
-                        response = JSON.parse(response);
-                        if (response.status) { 
-                            iziToast.success({
-                                title: 'OK',
-                                position: "topRight",
-                                timeout: 500,
-                            });
-
-                        }else {
+            if (/^\d+$/.test($(data).val()) && e.keyCode !== 8) {
+                setTimeout(() => {
+                    const qty = $(data).val() == 0 ? 1 : $(data).val();
+                    const id_product = $(data).data('product');
+                    $.ajax({
+                        url: `<?= base_url('cart/api_add/') ?>`, // Replace with your server upload URL
+                        type: 'POST',
+                        data: {id_product, qty},
+                        success: function (response) {
+                            response = JSON.parse(response);
+                            if (!response.status) { 
+                                iziToast.error({
+                                    title: 'Error!',
+                                    message: response.msg,
+                                    position: "topRight"
+                                });
+                            }
+    
+                            $("#cartItem").html(response.list_item)
+                            $("#dataInvoice").html(response.data_invoice)
+                            // window.location.reload();
+    
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
                             iziToast.error({
                                 title: 'Error!',
-                                message: response.msg,
                                 position: "topRight"
                             });
+                            console.log(textStatus, errorThrown);
                         }
-
-                        // $("#cartItem").html(response.html)
-                        window.location.reload();
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        iziToast.error({
-                            title: 'Error!',
-                            position: "topRight"
-                        });
-                        console.log(textStatus, errorThrown);
-                    }
-                });
+                    });
+                }, 500);
             } 
         }
 
