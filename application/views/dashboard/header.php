@@ -114,6 +114,12 @@
                   <p>Laporan Penjualan</p>
                 </a>
               </li>
+              <li class="nav-item <?= @$pengaturan ? 'active' : '' ?>">
+                <a href="<?= base_url('dashboard/pengaturan') ?>">
+                  <i class="fas fa-cog"></i>
+                  <p>Pengaturan</p>
+                </a>
+              </li>
             </ul>
           </div>
         </div>

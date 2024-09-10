@@ -39,6 +39,7 @@
                         <thead class="border-t-2 border-b-2 border-black">
                             <tr>
                                 <th class="py-2">INFO PRODUK</th>
+                                <th class="py-2">Berat(g)</th>
                                 <th class="py-2">QTY</th>
                                 <th class="py-2">HARGA SATUAN</th>
                                 <th class="py-2">TOTAL HARGA</th>
@@ -47,9 +48,14 @@
                         <tbody>
                             <?php 
                             $totals = 0;
+                            $total_weight = 0;
                             foreach($orders['items'] as $i => $item) : ?>
                             <tr>
                                 <td class="text-blue-500 font-bold sm:text-base uppercase"><?= $item['product_name']; ?></td>
+                                <td>
+                                    <?php 
+                                    $total_weight += ($item['weight'] * $item['qty']);
+                                    echo $item['weight']."gram"; ?></td>
                                 <td><?= $item['qty']; ?></td>
                                 <td><?= "Rp".number_format($item['product_price'],0,".","."); ?></td>
                                 <td>
@@ -70,10 +76,14 @@
                             <div class="uppercase font-bold">Total Harga (<?= count($orders['items']); ?> Barang)</div>
                             <div class="font-bold text-end"><?= "Rp".number_format($totals,0,".","."); ?></div>
                             <div>Ongkos Kirim</div>
-                            <div class="text-end">Rp40.000</div>
+                            <div class="text-end"><?= "Rp".number_format($orders['ongkir'],0,".","."); ?></div>
+                            <div>Total Berat</div>
+                            <div class="text-end"><?= $total_weight; ?> gram</div>
+                            <div>Estimasi</div>
+                            <div class="text-end"><?= $orders['estimasi']; ?></div>
                             <div class="uppercase font-bold">Total Belanja</div>
                             <div class="font-bold text-end">
-                                <?= "Rp".number_format($orders['total_amount'],0,".",".")."*"; ?>
+                                <?= "Rp".number_format($orders['total_amount']+$orders['ongkir']+$orders['kode_unik'],0,".",".")."*"; ?>
                                 <br>
                                 <p class="italic text-[12px] text-slate-500 font-normal">*sudah termasuk dengan kode unik pembayaran</p>
                             </div>
@@ -84,7 +94,7 @@
                 <div class="flex flex-col sm:flex-row justify-between py-5 space-y-3 sm:space-y-0 text-sm sm:text-base">
                     <div class="w-full sm:w-1/2">
                         <div>Kurir</div>
-                        <div class="font-bold uppercase">JNE-Reguler</div>
+                        <div class="font-bold uppercase"><?= str_replace(',', '-', $orders['kurir']); ?></div>
                     </div>
                     <div class="w-full sm:w-1/2">
                         <div>Metode Pembayaran</div>

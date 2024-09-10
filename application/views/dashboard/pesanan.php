@@ -52,7 +52,7 @@
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td><i class="fas fa-truck"></i> JNE</td>
-                                                <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td><?= "Rp ".number_format($order['total_amount']+$order['kode_unik']+$order['ongkir'], 0, ".", "."); ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
@@ -86,7 +86,7 @@
                                                 <td><?= $order['order_date']; ?></td>
                                                 <td class="text-uppercase"><?= $order['payment_method']; ?></td>
                                                 <td><i class="fas fa-truck"></i> JNE</td>
-                                                <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td><?= "Rp ".number_format($order['total_amount']+$order['kode_unik']+$order['ongkir'], 0, ".", "."); ?></td>
                                                 <td>
                                                     <a href="<?= base_url('dashboard/confirm_pesanan/'.$order['order_id']); ?>" class="badge badge-info">Proses</a>
                                                 </td>
@@ -125,7 +125,7 @@
                                                 <td><?= $order['date_shipped']; ?></td>
                                                 <td class="text-uppercase"><?= $order['payment_method']; ?></td>
                                                 <td><i class="fas fa-truck"></i> JNE</td>
-                                                <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td><?= "Rp ".number_format($order['total_amount']+$order['kode_unik']+$order['ongkir'], 0, ".", "."); ?></td>
                                                 <td>
                                                     <a href="https://jne.co.id/tracking-package" target="__blank" class="badge badge-primary text-white">Lacak</a>
                                                     
@@ -170,7 +170,7 @@
                                                 <td><?= $order['date_delivered']; ?></td>
                                                 <td class="text-uppercase"><?= $order['payment_method']; ?></td>
                                                 <td><i class="fas fa-truck"></i> JNE</td>
-                                                <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td><?= "Rp ".number_format($order['total_amount']+$order['kode_unik']+$order['ongkir'], 0, ".", "."); ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
@@ -201,7 +201,7 @@
                                                 <td class="text-uppercase"><?= $order['name']; ?></td>
                                                 <td><?= $order['total_item']; ?></td>
                                                 <td><?= $order['order_date']; ?></td>
-                                                <td><?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?></td>
+                                                <td><?= "Rp ".number_format($order['total_amount']+$order['kode_unik']+$order['ongkir'], 0, ".", "."); ?></td>
                                                 <td><?= $order['catatan_pembatalan']; ?></td>
                                             </tr>
                                             <?php endforeach; ?>

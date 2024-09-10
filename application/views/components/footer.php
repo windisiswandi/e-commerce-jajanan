@@ -5,9 +5,9 @@
                     <h1 class="font-semibold text-2xl">Toko Jajanan Lombok</h1>
                     <p class="text-gray-500 text-sm mt-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <div class="space-x-3 text-black font-bold text-xl mt-5">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="<?= $data_pengaturan->facebook ?>"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="<?= $data_pengaturan->instagram ?>"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="<?= $data_pengaturan->twitter ?>"><i class="fa-brands fa-twitter"></i></a>
                     </div>
                 </div>
                 <div>
@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <td class="pr-4"><i class=" text-lg fa-brands fa-whatsapp" class="font-bold"></i></td>
-                            <td class="py-2"><a href="#" class="block text-sm text-gray-500">+62811213456678</a></td>
+                            <td class="py-2"><a href="<?= 'https://wa.me/'.$data_pengaturan->wa ?>" class="block text-sm text-gray-500"><?= $data_pengaturan->wa ?></a></td>
                         </tr>
                         <tr>
                             <td class="pr-4"><i class=" text-lg fa-solid fa-envelope" class="font-bold"></i></td>
-                            <td class="py-2"><a href="#" class="block text-sm text-gray-500">tokojajanan.lombok@gmail.com</a></td>
+                            <td class="py-2"><a class="block text-sm text-gray-500"><?= $data_pengaturan->email ?></a></td>
                         </tr>
                     </table>
                     <!-- <iframe class="w-full mt-3" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8976.370175897235!2d116.53855345649421!3d-8.659116886004599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcc4f002f414ca9%3A0xf3d932b590e2061f!2sBermis%201%20Selong!5e0!3m2!1sid!2sid!4v1721428911806!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
@@ -169,7 +169,6 @@
                             }
     
                             $("#cartItem").html(response.list_item)
-                            $("#dataInvoice").html(response.data_invoice)
                             // window.location.reload();
     
                         },
@@ -210,6 +209,11 @@
             // $('#total_amount').val(total_amount)
         }
 
+        function changeKurir() {
+            $('#kurir').toggleClass('hidden')
+            // $('#total_amount').val(total_amount)
+        }
+
         function orderStatus(data) 
         {
             $('#menu-order li').each(function (i, li) {
@@ -222,6 +226,60 @@
                 else $(div).addClass('hidden')
             })
 
+        }
+
+        function selectKurir(data, total_belanja, kode_unik) 
+        {
+            const ongkir = $(data).data('ongkir');
+            const service = $(data).data('service');
+            const description = $(data).data('description');
+            const etd = $(data).data('etd');
+            const total_amount = total_belanja + ongkir + kode_unik;
+
+            $('#display_ongkir').html(formatRupiah(ongkir));
+            $('#display_total_amount').html(formatRupiah(total_amount));
+            $('#display_estimasi').html(`${etd} Hari`);
+            $('#display_service').html(`JNE-${service}`);
+            $('#display_description').html(`(${description})`);
+
+            $("input[name='ongkir']").val(ongkir);
+            $("input[name='total_amount']").val(total_belanja);
+            $("input[name='estimasi']").val(`${etd} Hari`);
+            $("input[name='kurir']").val(`${service},${description}`);
+
+            changeKurir();
+
+            iziToast.success({
+                title: 'OK',
+                message: "Layanan Kurir Berhasil diubah",
+                position: "bottomCenter",
+                timeout: 500,
+            });
+        }
+
+        function changeProvince(data) {
+            const value = $(data).val()
+            let id_province = value.split(",");
+            $("select[name='kota']").prop("disabled", true)
+            $.ajax({
+                url: `<?= base_url('user/get_kota/'); ?>${id_province[0]}`,
+                type: "POST",
+                success: response => {
+                    response = JSON.parse(response);
+                    if (response.status) {
+                        $("select[name='kota']").html(response.option)
+                    }
+
+                    $("select[name='kota']").prop("disabled", false)
+                },
+                error: err => {
+                    console.log(err);
+                }
+            })
+        }
+
+        function formatRupiah(angka) {
+            return 'Rp' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
         function closeAlert() {

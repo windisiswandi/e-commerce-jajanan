@@ -5,7 +5,9 @@ class Auth extends CI_Controller {
     function __construct()
     {
         parent::__construct();
+        $this->load->model("Kurir_model");
         $this->load->library("form_validation");
+        $this->_data['data_pengaturan'] = $this->db->get('pengaturan')->row();
     }
 
     public function login()
@@ -101,12 +103,21 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules("email", "Email", "trim|required|is_unique[users.email]");
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('register');
+            $provinces = $this->Kurir_model->getProvince();
+            $this->_data['provinces'] = $provinces['rajaongkir']['results'];
+            $this->load->view('register', $this->_data);
         }else {
+            $province = explode(",",$this->input->post('provinsi'));
+            $city = explode(",",$this->input->post('kota'));
+
             $data = [
                 "name" => $this->input->post("first_name")." ".$this->input->post("second_name"),
                 "username" => $this->input->post("username"),
                 "phone_number" => $this->input->post("phone_number"),
+                "id_province" => $province[0],
+                "province_name" => $province[1],
+                "id_city" => $city[0],
+                "city_name" => $city[1],
                 "address" => $this->input->post("address"),
                 "email" => $this->input->post("email"),
                 "password" => password_hash($this->input->post("password"), PASSWORD_DEFAULT),
@@ -240,6 +251,17 @@ class Auth extends CI_Controller {
         }else {
             echo $this->email->print_debugger(); die;
         }
+    }
+
+    public function get_kota($id_prov) 
+    {
+        $city = $this->Kurir_model->getCity($id_prov);
+        $this->_data['city'] = $city['rajaongkir']['results'];
+
+        echo json_encode([
+            "status" => true,
+            "option" => $this->load->view("partial/option_city", $this->_data, true) 
+        ]);
     }
 
 }

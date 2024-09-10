@@ -19,23 +19,22 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/iziToast/css/iziToast.min.css'); ?>">
 </head>
 <body class="bg-slate-100">
-    <header class="bg-blue-500 sticky top-0 z-10">
+    <header class="bg-blue-500 sticky top-0 z-8">
         <nav class="px-4 sm:px-8 py-3 xl:container">
             <div class="justify-between items-center text-white hidden sm:flex">
                 <div class="flex items-center space-x-4">
                     <div class="flex items-center">
-                        <span class="border-r-2 border-white border-opacity-30 px-2"><i class="fa-solid fa-phone text-sm mr-2"></i> 012343455</span>
+                        <span class="border-r-2 border-white border-opacity-30 px-2"><i class="fa-solid fa-phone text-sm mr-2"></i> <?= $data_pengaturan->nomor_telp; ?></span>
                         <span class="px-2">
                             Ikuti kami
-                            <a href="#" class="ml-2"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#" class="mx-2"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="<?= $data_pengaturan->facebook ?>" class="ml-2"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="<?= $data_pengaturan->instagram ?>" class="mx-2"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="<?= $data_pengaturan->twitter ?>"><i class="fa-brands fa-twitter"></i></a>
                         </span>
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <a href="#" class="text-white hover:opacity-50 px-2">Tentang Kami</a>
-                    <a href="#" class="text-white hover:opacity-50 px-2">Kontak</a>
+                    <a href="#kontak" class="text-white hover:opacity-50 px-2">Kontak</a>
                     <?php if($this->session->userdata('username')): ?>
                         <!-- <div class="relative"> -->
                             <?php if($this->session->userdata('role') == 'user'): ?>

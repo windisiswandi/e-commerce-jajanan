@@ -38,7 +38,7 @@ class order_model extends CI_Model {
     public function get_order_with_user($order_id = null) {
                 
         if ($order_id) {
-            $this->db->select('orders.id as order_id, orders.*, users.name, users.address, users.id as user_id');
+            $this->db->select('orders.id as order_id, orders.*, users.*, users.id as user_id');
             $this->db->from('orders');
             $this->db->join('users', 'users.id = orders.user_id');
             $this->db->where('orders.id', $order_id);
@@ -54,7 +54,7 @@ class order_model extends CI_Model {
             $query['items']=$this->db->get()->result_array();
 
         }else {
-            $this->db->select('orders.id as order_id, orders.*, users.name');
+            $this->db->select('orders.id as order_id, orders.*, users.*');
             $this->db->from('orders');
             $this->db->join('users', 'users.id = orders.user_id');
             $query = $this->db->get()->result_array();

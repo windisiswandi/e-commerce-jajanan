@@ -52,7 +52,7 @@
                                     <td><?= $order['order_date'] ?></td>
                                     <td><?= $order['payment_method'] ?></td>
                                     <td>
-                                        <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                        <?= "Rp".number_format($order['total_amount']+$order['ongkir']+$order['kode_unik'], 0, ".",".") ?>
                                     </td>
                                     <td>
                                         <p class="mb-1"><?= $order['catatan_pembatalan']; ?></p>
@@ -102,7 +102,7 @@
                                     <td><?= $order['payment_method'] ?></td>
                                     <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
                                     <td>
-                                        <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                        <?= "Rp".number_format($order['total_amount']+$order['ongkir']+$order['kode_unik'], 0, ".",".") ?>
                                     </td>
                                     
                                 </tr>
@@ -140,7 +140,7 @@
                                     <td><?= $order['payment_method'] ?></td>
                                     <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
                                     <td>
-                                        <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                        <?= "Rp".number_format($order['total_amount']+$order['ongkir']+$order['kode_unik'], 0, ".",".") ?>
                                     </td>
                                     <td>
                                         <a href="https://jne.co.id/tracking-package" target="__blank" class="bg-blue-300 text-blue-800 font-semibold px-2 py-1 rounded text-[12px] lg:text-sm inline-block">Lacak</a>
@@ -181,7 +181,7 @@
                                     <td><?= $order['date_delivered'] ?></td>
                                     <td><?= $order['payment_method'] ?></td>
                                     <td>
-                                        <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                        <?= "Rp".number_format($order['total_amount']+$order['ongkir']+$order['kode_unik'], 0, ".",".") ?>
                                     </td>
                                     <td>
                                         <a href="<?= base_url('order/invoice/'.$order['id']); ?>" class="bg-yellow-300 text-yellow-800 font-semibold px-2 py-1 rounded text-[12px] lg:text-sm inline-block"><i class="fa-solid fa-eye"></i></a>
@@ -219,7 +219,7 @@
                                     <td><?= $order['payment_method'] ?></td>
                                     <td><i class="fa-solid fa-truck-fast font-bold"></i> JNE</td>
                                     <td>
-                                        <?= "Rp".number_format($order['total_amount'], 0, ".",".") ?>
+                                        <?= "Rp".number_format($order['total_amount']+$order['ongkir']+$order['kode_unik'], 0, ".",".") ?>
                                     </td>
                                     <td>
                                         <?= $order['catatan_pembatalan']; ?>

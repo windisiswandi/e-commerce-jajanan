@@ -8,6 +8,8 @@
     <link href="<?= base_url('assets/css/style.css'); ?>" rel="stylesheet">
     <!-- fontawesome -->
     <link href="<?= base_url('assets/vendor/fontawesome6/css/all.min.css'); ?>" rel="stylesheet">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body class="bg-slate-100">
     <header class="bg-white sticky top-0 z-10">
@@ -71,7 +73,19 @@
                         <span class="px-3 py-2 bg-slate-300"><i class="fa-solid fa-phone"></i></span>
                         <input type="number" class="focus:border-blue-300 focus:outline-none w-full p-2" name="phone_number" value="<?= set_value("phone_number") ?>" placeholder="Cth: +6287334313238" required> 
                     </div>
-                    
+                    <div class="mb-3">
+                        <select name="provinsi" class="focus:border-blue-300 focus:outline-none w-full p-2 border-2 border-gray-300 rounded mt-1" onchange="changeProvince(this)" required>
+                            <option value="">Pilih Provinsi</option>
+                            <?php foreach($provinces as $province) : ?>
+                                <option value="<?= $province['province_id'].",".$province['province'] ?>"><?= $province['province']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <select name="kota" class="focus:border-blue-300 focus:outline-none w-full p-2 border-2 border-gray-300 rounded mt-1 disabled:cursor-not-allowed disabled:bg-slate-300" required>
+                            <option value="">Pilih Kota / Kabupaten</option>
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label for="">Masukan Alamat Lengkap</label>
                         <textarea name="address" id="alamat" class="text-sm focus:border-blue-300 focus:outline-none w-full p-2 border-2 border-gray-300 rounded mt-1" rows="4" placeholder="Nama Jalan, Gedung, No.Rumah
@@ -142,5 +156,28 @@ Kecamatan, Kota, Provinsi, Kode Pos" required><?= set_value("address") ?></texta
             </div>
         </div>
     </footer>
+
+    <script>
+        function changeProvince(data) {
+            const value = $(data).val()
+            let id_province = value.split(",");
+            $("select[name='kota']").prop("disabled", true)
+            $.ajax({
+                url: `<?= base_url('auth/get_kota/'); ?>${id_province[0]}`,
+                type: "POST",
+                success: response => {
+                    response = JSON.parse(response);
+                    if (response.status) {
+                        $("select[name='kota']").html(response.option)
+                    }
+
+                    $("select[name='kota']").prop("disabled", false)
+                },
+                error: err => {
+                    console.log(err);
+                }
+            })
+        }
+    </script>
 </body>
 </html>

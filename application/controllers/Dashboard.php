@@ -367,4 +367,27 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/pelanggan', $this->_data);
 		$this->load->view('dashboard/footer');
     }
+// end
+// pengaturan
+    public function pengaturan()
+    {
+        $this->_data['title'] = "Pengaturan";
+        $this->_data['pengaturan'] = true;
+        $this->_data['data_pengaturan'] = $this->db->get('pengaturan')->row();
+		$this->load->view('dashboard/header', $this->_data);
+		$this->load->view('dashboard/pengaturan', $this->_data);
+		$this->load->view('dashboard/footer'); 
+    }
+
+    public function simpan_pengaturan($id)
+    {
+        $this->db->where("id", $id);
+        if ($this->db->update('pengaturan', $_POST)) {
+            redirect('dashboard/pengaturan');
+        }
+    }
+// end
+
+
 }
+

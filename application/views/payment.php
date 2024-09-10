@@ -22,7 +22,7 @@
                 <header class="bg-blue-500 p-3 text-white">No Rekening Toko</header>
                 <div class="p-5">
                     <p class=" text-slate-400 text-sm">Silahkan transfer uang ke no rekening dibawah sebesar :</p>
-                    <h1 class="text-3xl font-bold text-black"><?= "Rp".number_format($order->total_amount, 0, ".", "."); ?></h1>
+                    <h1 class="text-3xl font-bold text-black"><?= "Rp".number_format($order->total_amount+$order->ongkir+$order->kode_unik, 0, ".", "."); ?></h1>
                     <table class="table-auto w-full text-sm p-4 mt-5">
                         <thead class="font-bold">
                             <tr>
@@ -33,9 +33,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>BRI</td>
-                                <td>12345678987655</td>
-                                <td>Kinta Astarida</td>
+                                <td><?= $data_pengaturan->nama_bank; ?></td>
+                                <td><?= $data_pengaturan->no_rek; ?></td>
+                                <td><?= $data_pengaturan->atas_nama; ?></td>
                             </tr>
                         </tbody>
                     </table>

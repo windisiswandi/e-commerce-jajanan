@@ -62,6 +62,12 @@
                                     </div>
                                 </div>
                                 <div class="row align-items-center mb-1">
+                                    <label class="col-sm-4 col-form-label">Layanan Kurir</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= "JNE-".str_replace(',','-',$order['kurir']); ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center mb-1">
                                     <label class="col-sm-4 col-form-label">Jumlah Barang</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= count($order['items']); ?>" disabled>
@@ -76,13 +82,13 @@
                                 <div class="row align-items-center mb-1">
                                     <label class="col-sm-4 col-form-label">Total Bayar</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= "Rp ".number_format($order['total_amount'], 0, ".", "."); ?>" disabled>
+                                        <input type="text" class="form-control form-control-sm fw-bold text-uppercase" value="<?= "Rp ".number_format($order['total_amount']+$order['kode_unik']+$order['ongkir'], 0, ".", "."); ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="row align-items-start mb-3">
                                     <label class="col-sm-4 col-form-label">Alamat</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control" rows="5" disabled><?= $order['address']; ?></textarea>
+                                        <textarea class="form-control" rows="5" disabled><?= $order['address'].", ".$order["city_name"].", ".$order['province_name']; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="text-end">

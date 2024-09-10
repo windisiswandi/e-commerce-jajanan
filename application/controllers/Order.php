@@ -16,6 +16,7 @@ class Order extends CI_Controller {
 		$id = $this->session->userdata('id');
         $this->_data['user'] = $this->User_model->get_user($id);
         $this->_data['carts'] = $this->cart_model->get_where($id);
+        $this->_data['data_pengaturan'] = $this->db->get('pengaturan')->row();
 
         if (!$this->session->userdata("username")) redirect('auth/user_login');
         if ($this->session->userdata("role") == "admin") redirect('dashboard');
@@ -32,6 +33,11 @@ class Order extends CI_Controller {
             'order_date' => date("Y-m-d H:i:s"),
             'total_amount' => $this->input->post('total_amount'),
             'payment_method' => $payment,
+            'ongkir' => $this->input->post('ongkir'),
+            'kurir' => $this->input->post('kurir'),
+            'kode_unik' => $this->input->post('kode_unik'),
+            'estimasi' => $this->input->post('estimasi'),
+            'total_weight' => $this->input->post('total_weight'),
             'order_status' => $payment == 'transfer' ? 'pending' : 'packed',
         ];
 

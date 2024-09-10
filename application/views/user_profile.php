@@ -67,6 +67,35 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="py-4">Provinsi</td>
+                            <td>
+                                <select name="provinsi" class="focus:border-blue-300 focus:outline-none w-full p-2 border-2 border-gray-300 rounded mt-1" onchange="changeProvince(this)" required>
+                                    
+                                    <?php foreach($provinces as $province) : ?>
+                                        <?php if(@$user->id_province == $province['province_id']) : ?>
+                                            <option value="<?= $province['province_id'].",".$province['province'] ?>" selected><?= $province['province']; ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $province['province_id'].",".$province['province'] ?>"><?= $province['province']; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4">Kota / Kabupaten</td>
+                            <td>
+                                <select name="kota" class="focus:border-blue-300 focus:outline-none w-full p-2 border-2 border-gray-300 rounded mt-1 disabled:cursor-not-allowed disabled:bg-slate-300" required>
+                                    <?php foreach($city as $c) : ?>
+                                        <?php if(@$user->id_city == $c['city_id']) : ?>
+                                            <option value="<?= $c['city_id'].",".$c['city_name'] ?>" selected><?= $c['city_name']; ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $c['city_id'].",".$c['city_name'] ?>"><?= $c['city_name']; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="py-4">Alamat</td>
                             <td>
                                 <textarea name="address" id="alamat" class="text-sm focus:border-blue-300 focus:outline-none w-full p-2 border-2 border-gray-300 rounded mt-1" rows="4" placeholder="Nama Jalan, Gedung, No.Rumah

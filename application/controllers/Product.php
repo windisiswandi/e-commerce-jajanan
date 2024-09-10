@@ -14,6 +14,7 @@ class Product extends CI_Controller {
 		$id = $this->session->userdata('id');
         $this->_data['user'] = $this->User_model->get_user($id);
         $this->_data['carts'] = $this->cart_model->get_where($id);
+		$this->_data['data_pengaturan'] = $this->db->get('pengaturan')->row();
 	}
 	
 	public function index()

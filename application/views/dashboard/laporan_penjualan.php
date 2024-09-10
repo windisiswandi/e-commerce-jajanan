@@ -137,6 +137,5 @@
             if($(div).data('status') == $(data).data('status')) $(div).removeClass('d-none')
             else $(div).addClass('d-none')
         })
-
     }
 </script>
