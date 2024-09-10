@@ -47,11 +47,16 @@
                                         <?= form_error("product_price", '<small class="text-danger ml-3">', '</small>'); ?>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="formFile" class="form-label">Foto</label>
-                                        <input class="form-control" type="file" id="formFile" name="foto">
-                                        <input class="form-control" type="hidden" id="formFile" name="old_foto" value="<?= $pct->foto; ?>">
+                                        <label for="berat" class="form-label">Berat (g)</label>
+                                        <input class="form-control" type="number" id="berat" name="weight" placeholder="Berat produk (gram)" value="<?= $pct->weight; ?>" required>
                                     </div>
+                                    
                                 </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Foto</label>
+                                <input class="form-control" type="file" id="formFile" name="foto">
+                                <input class="form-control" type="hidden" id="formFile" name="old_foto" value="<?= $pct->foto; ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <title>Toko Jajanan - Dashboard</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -49,7 +49,7 @@
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
             <a href="<?= base_url('dashboard') ?>" class="logo text-white">
-              KintaShop
+              TokoJajan
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">

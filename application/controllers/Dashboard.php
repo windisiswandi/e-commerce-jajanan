@@ -121,6 +121,7 @@ class Dashboard extends CI_Controller {
                 'product_modal' => $this->input->post('product_modal'),
                 'stock' => $this->input->post('stock'),
                 'category_id' => $this->input->post('category_id'),
+                'weight' => $this->input->post('weight'),
             ];
 
             if (!empty($_FILES['foto']['name'])) {
