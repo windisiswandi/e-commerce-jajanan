@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/iziToast/css/iziToast.min.css'); ?>">
 </head>
 <body class="bg-slate-100">
-    <header class="bg-blue-500 sticky top-0 z-8">
+    <header class="bg-blue-500 sticky top-0 z-10">
         <nav class="px-4 sm:px-8 py-3 xl:container">
             <div class="justify-between items-center text-white hidden sm:flex">
                 <div class="flex items-center space-x-4">
